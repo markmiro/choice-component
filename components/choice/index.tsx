@@ -48,6 +48,12 @@ export function Choice({ choices, state }: ChoiceProps) {
   const open = () => setIsOpen(true);
   const close = useCallback(() => setIsOpen(false), []);
   const toggleMobileExpanded = () => setMobileExpanded((s) => !s);
+  const handleInputEsc: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Escape" && search) {
+      setSearch("");
+      e.stopPropagation();
+    }
+  };
 
   // misc
   useOnWindowEscape(close);
@@ -68,7 +74,12 @@ export function Choice({ choices, state }: ChoiceProps) {
             className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
           >
             <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} />
+            <input
+              className={s.search}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleInputEsc}
+            />
             {filteredChoices.map((choice) => (
               <div key={choice.id} className={s.choice}>
                 <div

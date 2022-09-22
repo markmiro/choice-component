@@ -71,7 +71,12 @@ export function Choice({ choices, state }: ChoiceProps) {
             <input value={search} onChange={(e) => setSearch(e.target.value)} />
             {filteredChoices.map((choice) => (
               <div key={choice.id} className={s.choice}>
-                <div className={s.img} />
+                <div
+                  className={s.img}
+                  style={{
+                    backgroundColor: `hsl(${choice.color[0]}deg, 100%, 80%)`,
+                  }}
+                />
                 {choice.name}
               </div>
             ))}

@@ -29,7 +29,9 @@ function createChoices(count: number) {
 const choices = createChoices(5);
 
 const Home: NextPage = () => {
+  const [showChoice, setShowChoice] = useState(true);
   const choiceState = useState<string>("");
+  const toggleShowChoice = () => setShowChoice((s) => !s);
 
   return (
     <div>
@@ -44,7 +46,17 @@ const Home: NextPage = () => {
           Figma File
         </a>
       </main>
-      <Choice choices={choices} state={choiceState} />
+      <button
+        onClick={toggleShowChoice}
+        style={{
+          top: 0,
+          position: "absolute",
+          zIndex: 9999,
+        }}
+      >
+        Toggle show choice
+      </button>
+      {showChoice && <Choice choices={choices} state={choiceState} />}
     </div>
   );
 };

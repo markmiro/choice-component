@@ -53,7 +53,7 @@ export function Choice({ choices, state }: ChoiceProps) {
   useOnWindowEscape(close);
   const filteredChoices = choices.filter((choice: ChoiceType) =>
     // TODO: what about children matching the search?
-    search ? choice.name.indexOf(search) > -1 : true
+    search ? choice.name.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
   );
 
   return (

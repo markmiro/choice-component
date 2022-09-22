@@ -2,6 +2,11 @@
   position: relative;
 }
 
+.search {
+  position: sticky;
+  top: 0;
+}
+
 .mobileExpanded {
   background: green;
   width: 100px;

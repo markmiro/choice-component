@@ -13,7 +13,7 @@ function createChoice(): ChoiceType {
     id: faker.random.alphaNumeric(10),
     img: "https://picsum.photos/80",
     color: faker.color.hsl(),
-    name: faker.lorem.word(),
+    name: faker.lorem.sentence(),
     children: [],
   };
 }
@@ -26,7 +26,7 @@ function createChoices(count: number) {
   return arr;
 }
 
-const choices = createChoices(5);
+const choices = createChoices(20);
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);

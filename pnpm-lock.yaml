@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@faker-js/faker': 7.5.0
   '@markmiro/css-base': 2.0.0
   '@types/node': 18.7.18
   '@types/react': 18.0.21
@@ -14,6 +15,7 @@ specifiers:
   typescript: 4.8.3
 
 dependencies:
+  '@faker-js/faker': 7.5.0
   '@markmiro/css-base': 2.0.0
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
@@ -61,6 +63,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@faker-js/faker/7.5.0:
+    resolution: {integrity: sha512-8wNUCCUHvfvI0gQpDUho/3gPzABffnCn5um65F8dzQ86zz6dlt4+nmAA7PQUc8L+eH+9RgR/qzy5N/8kN0Ozdw==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.5:
     resolution: {integrity: sha512-XVVDtp+dVvRxMoxSiSfasYaG02VEe1qH5cKgMQJWhol6HwzbcqoCMJi8dAGoYAO57jhUyhI6cWuRiTcRaDaYug==}

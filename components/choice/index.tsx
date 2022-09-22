@@ -75,21 +75,27 @@ export function Choice({ choices, state }: ChoiceProps) {
             className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
           >
             <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
-            <input
-              className={s.search}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={handleInputEsc}
-            />
+            <div className={s.searchWrapper}>
+              <input
+                className={s.search}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleInputEsc}
+              />
+            </div>
             {filteredChoices.map((choice) => (
               <div key={choice.id} className={s.choice}>
-                <div
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={choice.img}
+                  alt="none"
+                  loading="lazy"
                   className={s.img}
                   style={{
                     backgroundColor: `hsl(${choice.color[0]}deg, 100%, 80%)`,
                   }}
                 />
-                {choice.name}
+                <div className={s.choiceName}>{choice.name}</div>
               </div>
             ))}
             {choices.length > 0 && filteredChoices.length === 0 && (

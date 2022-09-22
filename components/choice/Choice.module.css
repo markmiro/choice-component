@@ -2,14 +2,17 @@
   position: relative;
 }
 
-.search {
+.searchWrapper {
   position: sticky;
   top: 0;
+  padding: 10px;
+}
+.search {
+  width: 100%;
 }
 
 .mobileExpanded {
   background: green;
-  width: 100px;
   height: 2px;
   padding: 10px;
 }
@@ -32,7 +35,6 @@
 .choices {
   position: absolute;
   border: 1px solid;
-  padding: 10px;
   background: yellow;
 
   display: flex;
@@ -42,9 +44,16 @@
 }
 
 .choice {
-  display: flex;
   padding: 10px;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid blue;
+  gap: 10px;
+}
+.choice img {
+  flex-shrink: 0;
+}
+.choiceName {
 }
 
 @media (width <= 400px) {
@@ -63,5 +72,8 @@
 @media (width > 400px) {
   .mobileExpanded {
     display: none;
+  }
+  .choices {
+    width: 315px;
   }
 }

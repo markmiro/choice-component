@@ -8,10 +8,16 @@ import { useState } from "react";
 
 faker.seed(1);
 
+let i = 0;
+const getImage = () => {
+  const img = `https://picsum.photos/${i}/80`;
+  i++;
+  return img;
+};
 function createChoice(): ChoiceType {
   return {
     id: faker.random.alphaNumeric(10),
-    img: "https://picsum.photos/80",
+    img: getImage(),
     color: faker.color.hsl(),
     name: faker.lorem.sentence(),
     children: [],

@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@markmiro/css-base': 2.0.0
   '@types/node': 18.7.18
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
@@ -12,6 +13,7 @@ specifiers:
   typescript: 4.8.3
 
 dependencies:
+  '@markmiro/css-base': 2.0.0
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -81,6 +83,10 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
+
+  /@markmiro/css-base/2.0.0:
+    resolution: {integrity: sha512-XVmxWaAUCSUsD36ULn+jn8SILP3VzSmtrsefSREUXFy2zKJWl+iVQ3wmU6Xo0hBqXLm5oKstH0JzoQ8ZudyM+Q==}
+    dev: false
 
   /@next/env/12.3.1:
     resolution: {integrity: sha512-9P9THmRFVKGKt9DYqeC2aKIxm8rlvkK38V1P1sRE7qyoPBIs8l9oo79QoSdPtOWfzkbDAVUqvbQGgTMsb8BtJg==}

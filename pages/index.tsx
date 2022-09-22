@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import "@markmiro/css-base";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -13,6 +14,9 @@ const Home: NextPage = () => {
 
       <main>
         <h1>Glide Choice Component</h1>
+        <a href="https://www.figma.com/file/gXlpBINSgg129W887h5ygW/Choice-Component?node-id=0%3A1">
+          Figma File
+        </a>
       </main>
     </div>
   );

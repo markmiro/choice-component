@@ -49,7 +49,12 @@ export function Choice({ choices, state }: ChoiceProps) {
   const close = useCallback(() => setIsOpen(false), []);
   const toggleMobileExpanded = () => setMobileExpanded((s) => !s);
 
+  // misc
   useOnWindowEscape(close);
+  const filteredChoices = choices.filter((choice: ChoiceType) =>
+    // TODO: what about children matching the search?
+    search ? choice.name.indexOf(search) > -1 : true
+  );
 
   return (
     <>
@@ -64,12 +69,15 @@ export function Choice({ choices, state }: ChoiceProps) {
           >
             <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
             <input value={search} onChange={(e) => setSearch(e.target.value)} />
-            {choices.map((choice) => (
+            {filteredChoices.map((choice) => (
               <div key={choice.id} className={s.choice}>
                 <div className={s.img} />
                 {choice.name}
               </div>
             ))}
+            {choices.length > 0 && filteredChoices.length === 0 && (
+              <span>Nothing found 👀</span>
+            )}
           </div>
         </>
       )}

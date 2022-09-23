@@ -4,6 +4,7 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import s from "./Choice.module.css";
@@ -44,6 +45,7 @@ export function Choice({ choices, state }: ChoiceProps) {
   const [chosen, setChosen] = state ?? ["", () => {}];
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // actions
   const open = () => setIsOpen(true);
@@ -63,6 +65,10 @@ export function Choice({ choices, state }: ChoiceProps) {
     search ? choice.name.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
   );
 
+  useEffect(() => {
+    searchInputRef?.current?.focus();
+  }, [isOpen]);
+
   return (
     <>
       <div className={s.chosenBox} onClick={open}>
@@ -77,6 +83,7 @@ export function Choice({ choices, state }: ChoiceProps) {
             <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
             <div className={s.searchWrapper}>
               <input
+                ref={searchInputRef}
                 className={s.search}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

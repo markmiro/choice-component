@@ -10,6 +10,7 @@ import {
 } from "react";
 import s from "./Choice.module.css";
 import c from "classnames";
+import { useLayer } from "react-laag";
 
 function Img({
   color,
@@ -103,11 +104,22 @@ export function Choice({ choices, state }: ChoiceProps) {
     searchInputRef?.current?.focus();
   }, [isOpen]);
 
+  const { triggerProps, layerProps, renderLayer } = useLayer({
+    isOpen,
+    overflowContainer: false,
+    placement: "bottom-start",
+    containerOffset: 0,
+    auto: true,
+    preferX: "left",
+    preferY: "top",
+    onOutsideClick: close,
+  });
+
   return (
     <>
-      <div className={s.chosenBox} onClick={open}>
+      <div className={s.chosenBox} {...triggerProps} onClick={open}>
         {currentChoice ? (
-          <div>
+          <div style={{ display: "flex", width: "100%", minWidth: 315 }}>
             <Img
               sideLength={24}
               src={currentChoice.img}
@@ -121,34 +133,40 @@ export function Choice({ choices, state }: ChoiceProps) {
       </div>
       {isOpen && (
         <>
-          <Overlay onClick={close} />
-          <div
-            className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
-          >
-            <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
-            <div className={s.searchWrapper}>
-              <input
-                ref={searchInputRef}
-                className={s.search}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={handleInputEsc}
-              />
-            </div>
-            {filteredChoices.map((choice) => (
+          {/* <Overlay onClick={close} /> */}
+          {renderLayer(
+            <div
+              {...layerProps}
+              className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
+            >
               <div
-                key={choice.id}
-                className={c([s.choice, { active: choice.id === chosenId }])}
-                onClick={select(choice.id)}
-              >
-                <Img sideLength={40} src={choice.img} color={choice.color} />
-                <div className={s.choiceName}>{choice.name}</div>
+                className={s.mobileExpanded}
+                onClick={toggleMobileExpanded}
+              />
+              <div className={s.searchWrapper}>
+                <input
+                  ref={searchInputRef}
+                  className={s.search}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={handleInputEsc}
+                />
               </div>
-            ))}
-            {choices.length > 0 && filteredChoices.length === 0 && (
-              <span>Nothing found 👀</span>
-            )}
-          </div>
+              {filteredChoices.map((choice) => (
+                <div
+                  key={choice.id}
+                  className={c([s.choice, { active: choice.id === chosenId }])}
+                  onClick={select(choice.id)}
+                >
+                  <Img sideLength={40} src={choice.img} color={choice.color} />
+                  <div className={s.choiceName}>{choice.name}</div>
+                </div>
+              ))}
+              {choices.length > 0 && filteredChoices.length === 0 && (
+                <span>Nothing found 👀</span>
+              )}
+            </div>
+          )}
         </>
       )}
     </>

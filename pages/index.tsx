@@ -10,7 +10,7 @@ faker.seed(1);
 
 let i = 0;
 const getImage = () => {
-  const img = `https://picsum.photos/id/${i}/80`;
+  const img = `https://picsum.photos/id/${i + 10}/80`;
   i++;
   return img;
 };
@@ -19,7 +19,7 @@ function createChoice(): ChoiceType {
     id: faker.random.alphaNumeric(10),
     img: getImage(),
     color: faker.color.hsl(),
-    name: faker.lorem.sentence(),
+    name: faker.lorem.word(),
     children: [],
   };
 }
@@ -32,7 +32,7 @@ function createChoices(count: number) {
   return arr;
 }
 
-const choices = createChoices(20);
+const choices = createChoices(5);
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);

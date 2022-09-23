@@ -10,7 +10,7 @@ faker.seed(1);
 
 let i = 0;
 const getImage = () => {
-  const img = `https://picsum.photos/${i}/80`;
+  const img = `https://picsum.photos/id/${i}/80`;
   i++;
   return img;
 };

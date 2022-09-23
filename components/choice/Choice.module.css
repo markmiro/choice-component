@@ -53,6 +53,12 @@
 .choice img {
   flex-shrink: 0;
 }
+.choice:hover {
+  background: magenta;
+}
+.choice.active {
+  background: green;
+}
 .choiceName {
 }
 

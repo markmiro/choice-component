@@ -4,10 +4,37 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
 import s from "./Choice.module.css";
+import c from "classnames";
+
+function Img({
+  color,
+  src,
+  sideLength,
+}: {
+  sideLength: number;
+  color: number[];
+  src: string;
+}) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt="none"
+      loading="lazy"
+      className={s.img}
+      style={{
+        backgroundColor: `hsl(${color[0]}deg, 100%, 80%)`,
+        width: sideLength,
+        height: sideLength,
+      }}
+    />
+  );
+}
 
 export type ChoiceType = {
   id: string;
@@ -42,10 +69,14 @@ function useOnWindowEscape(action: () => void) {
 
 export function Choice({ choices, state }: ChoiceProps) {
   const [mobileExpanded, setMobileExpanded] = useState(false);
-  const [chosen, setChosen] = state ?? ["", () => {}];
+  const [chosenId, setChosenId] = state ?? ["", () => {}];
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const currentChoice = useMemo(() => {
+    return choices.find((choice) => choice.id === chosenId);
+  }, [choices, chosenId]);
 
   // actions
   const open = () => setIsOpen(true);
@@ -57,7 +88,10 @@ export function Choice({ choices, state }: ChoiceProps) {
       e.stopPropagation();
     }
   };
-
+  const select = (id: ChoiceType["id"]) => () => {
+    setChosenId(id);
+    close();
+  };
   // misc
   useOnWindowEscape(close);
   const filteredChoices = choices.filter((choice: ChoiceType) =>
@@ -72,7 +106,18 @@ export function Choice({ choices, state }: ChoiceProps) {
   return (
     <>
       <div className={s.chosenBox} onClick={open}>
-        Choose something
+        {currentChoice ? (
+          <div>
+            <Img
+              sideLength={24}
+              src={currentChoice.img}
+              color={currentChoice.color}
+            />
+            <div>{currentChoice.name}</div>
+          </div>
+        ) : (
+          "Choose something"
+        )}
       </div>
       {isOpen && (
         <>
@@ -91,17 +136,12 @@ export function Choice({ choices, state }: ChoiceProps) {
               />
             </div>
             {filteredChoices.map((choice) => (
-              <div key={choice.id} className={s.choice}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={choice.img}
-                  alt="none"
-                  loading="lazy"
-                  className={s.img}
-                  style={{
-                    backgroundColor: `hsl(${choice.color[0]}deg, 100%, 80%)`,
-                  }}
-                />
+              <div
+                key={choice.id}
+                className={c([s.choice, { active: choice.id === chosenId }])}
+                onClick={select(choice.id)}
+              >
+                <Img sideLength={40} src={choice.img} color={choice.color} />
                 <div className={s.choiceName}>{choice.name}</div>
               </div>
             ))}

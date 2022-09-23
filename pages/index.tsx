@@ -23,13 +23,13 @@ function createChoices(count: number, levels: number): ChoiceType[] {
       img: getImage(),
       color: faker.color.hsl(),
       name: faker.lorem.word(),
-      children: levels ? createChoices(3, levels - 1) : [],
+      children: levels ? createChoices(7, levels - 1) : [],
     };
   }
   return arr;
 }
 
-const choices = createChoices(5, 2);
+const choices = createChoices(10, 3);
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);

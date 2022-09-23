@@ -1,11 +1,16 @@
 Now:
 
+- fix search to work with nested results (just show the results inline, just like iOS settings search)
+- don't use react-laag on mobile (fix not showing on mobile)
+- make selecting work
+
 - Fix using "Choice" to refer to both the individual choice, and the full choice component
 - mobile: keep opened menu right below the chooser
   - if chooser is too low, then covering is ok
 
 Polish steps:
 
+- test with scrollbars visible
 - use arrow keys to navigate
 - debounce search
 - display nested element immediately, and scroll into view when opening select? Maybe just on mobile?

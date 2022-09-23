@@ -1,5 +1,8 @@
 import {
+  DetailedHTMLProps,
   Dispatch,
+  forwardRef,
+  HTMLAttributes,
   KeyboardEventHandler,
   SetStateAction,
   useCallback,
@@ -10,7 +13,7 @@ import {
 } from "react";
 import s from "./Choice.module.css";
 import c from "classnames";
-import { useLayer } from "react-laag";
+import { useHover, useLayer } from "react-laag";
 
 function Img({
   color,
@@ -68,7 +71,35 @@ function useOnWindowEscape(action: () => void) {
   }, [action]);
 }
 
-function InnerChoice({
+type InnerChoicePropsType = {
+  choice: ChoiceType;
+  chosenId: string;
+  onChooseId: (id: string) => void;
+} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+
+const InnerChoice = forwardRef<HTMLDivElement, InnerChoicePropsType>(
+  function InnerChoice({ choice, onChooseId, chosenId, ...rest }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={c([
+          s.choice,
+          {
+            [s.active]: choice.id === chosenId,
+          },
+        ])}
+        onClick={() => onChooseId(choice.id)}
+        {...rest}
+      >
+        <Img sideLength={40} src={choice.img} color={choice.color} />
+        <div className={s.choiceName}>{choice.name}</div>
+        {choice.children && choice.children.length > 0 && <>→</>}
+      </div>
+    );
+  }
+);
+
+function InnerChoiceWithChildren({
   choice,
   onChooseId,
   chosenId,
@@ -77,28 +108,44 @@ function InnerChoice({
   chosenId: string;
   onChooseId: (id: string) => void;
 }) {
+  const [isOpen, hoverProps, close] = useHover({
+    delayEnter: 0,
+    delayLeave: 0,
+    hideOnScroll: false,
+  });
+
+  const { triggerProps, layerProps, renderLayer } = useLayer({
+    isOpen,
+    placement: "right-start",
+    possiblePlacements: ["right-start", "left-start"],
+    containerOffset: 0,
+    auto: true,
+    onOutsideClick: close,
+    onParentClose: close,
+  });
+
   return (
     <>
-      <div
-        className={c([
-          s.choice,
-          {
-            [s.active]: choice.id === chosenId,
-          },
-        ])}
-        onClick={() => onChooseId(choice.id)}
-      >
-        <Img sideLength={40} src={choice.img} color={choice.color} />
-        <div className={s.choiceName}>{choice.name}</div>
-        {choice.children && choice.children.length > 0 && <>→</>}
-      </div>
-      {choice.children && choice.children.length > 0 && (
-        <InnerChoices
-          choices={choice.children}
-          onChooseId={onChooseId}
-          chosenId={chosenId}
-        />
-      )}
+      <InnerChoice
+        key={choice.id}
+        choice={choice}
+        chosenId={chosenId}
+        onChooseId={onChooseId}
+        {...hoverProps}
+        {...triggerProps}
+      />
+      {isOpen &&
+        renderLayer(
+          <div {...layerProps} {...hoverProps} className={s.choices}>
+            {choice.children && choice.children.length > 0 && (
+              <InnerChoices
+                choices={choice.children}
+                onChooseId={onChooseId}
+                chosenId={chosenId}
+              />
+            )}
+          </div>
+        )}
     </>
   );
 }
@@ -113,16 +160,25 @@ function InnerChoices({
   onChooseId: (id: string) => void;
 }) {
   return (
-    <div style={{ marginLeft: 20 }}>
-      {choices.map((choice) => (
-        <InnerChoice
-          key={choice.id}
-          choice={choice}
-          chosenId={chosenId}
-          onChooseId={onChooseId}
-        />
-      ))}
-    </div>
+    <>
+      {choices.map((choice) =>
+        choice.children && choice.children.length > 0 ? (
+          <InnerChoiceWithChildren
+            key={choice.id}
+            choice={choice}
+            chosenId={chosenId}
+            onChooseId={onChooseId}
+          />
+        ) : (
+          <InnerChoice
+            key={choice.id}
+            choice={choice}
+            chosenId={chosenId}
+            onChooseId={onChooseId}
+          />
+        )
+      )}
+    </>
   );
 }
 
@@ -181,12 +237,9 @@ export function Choice({ choices, state }: ChoiceProps) {
 
   const { triggerProps, layerProps, renderLayer } = useLayer({
     isOpen,
-    overflowContainer: false,
     placement: "bottom-start",
     containerOffset: 0,
     auto: true,
-    preferX: "left",
-    preferY: "top",
     onOutsideClick: close,
   });
 
@@ -227,14 +280,23 @@ export function Choice({ choices, state }: ChoiceProps) {
                   onKeyDown={handleInputEsc}
                 />
               </div>
-              {filteredChoices.map((choice) => (
-                <InnerChoice
-                  key={choice.id}
-                  choice={choice}
-                  chosenId={chosenId}
-                  onChooseId={select}
-                />
-              ))}
+              {filteredChoices.map((choice) =>
+                choice.children ? (
+                  <InnerChoiceWithChildren
+                    key={choice.id}
+                    choice={choice}
+                    chosenId={chosenId}
+                    onChooseId={select}
+                  />
+                ) : (
+                  <InnerChoice
+                    key={choice.id}
+                    choice={choice}
+                    chosenId={chosenId}
+                    onChooseId={select}
+                  />
+                )
+              )}
               {choices.length > 0 && filteredChoices.length === 0 && (
                 <span>Nothing found 👀</span>
               )}

@@ -29,7 +29,7 @@ function createChoices(count: number, levels: number): ChoiceType[] {
   return arr;
 }
 
-const choices = createChoices(5, 3);
+const choices = createChoices(5, 1);
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);

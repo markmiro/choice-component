@@ -133,8 +133,25 @@ export function Choice({ choices, state }: ChoiceProps) {
   const [isOpen, setIsOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  // We could grab the whole `choice` rather than just the `id` when the user makes a selection,
+  // but then what do you do when the component is mounted with a pre-selected choice?
+  // We could also build an index mapping `id` to choices if recursing becomes slow.
   const currentChoice = useMemo(() => {
-    return choices.find((choice) => choice.id === chosenId);
+    // console.countReset("currentChoice search");
+    let foundChoice: ChoiceType | undefined;
+    function searchChoices(choices: ChoiceType[]) {
+      if (foundChoice) return;
+      // console.count("currentChoice search");
+      choices.forEach((choice) => {
+        if (choice.id === chosenId) {
+          foundChoice = choice;
+          return;
+        }
+        if (choice.children) searchChoices(choice.children);
+      });
+    }
+    searchChoices(choices);
+    return foundChoice;
   }, [choices, chosenId]);
 
   // actions
@@ -147,7 +164,7 @@ export function Choice({ choices, state }: ChoiceProps) {
       e.stopPropagation();
     }
   };
-  const select = (id: ChoiceType["id"]) => () => {
+  const select = (id: ChoiceType["id"]) => {
     setChosenId(id);
     close();
   };

@@ -68,6 +68,64 @@ function useOnWindowEscape(action: () => void) {
   }, [action]);
 }
 
+function InnerChoice({
+  choice,
+  onChooseId,
+  chosenId,
+}: {
+  choice: ChoiceType;
+  chosenId: string;
+  onChooseId: (id: string) => void;
+}) {
+  return (
+    <>
+      <div
+        className={c([
+          s.choice,
+          {
+            active: choice.id === chosenId,
+          },
+        ])}
+        onClick={() => onChooseId(choice.id)}
+      >
+        <Img sideLength={40} src={choice.img} color={choice.color} />
+        <div className={s.choiceName}>{choice.name}</div>
+        {choice.children && choice.children.length > 0 && <>→</>}
+      </div>
+      {choice.children && choice.children.length > 0 && (
+        <InnerChoices
+          choices={choice.children}
+          onChooseId={onChooseId}
+          chosenId={chosenId}
+        />
+      )}
+    </>
+  );
+}
+
+function InnerChoices({
+  choices,
+  onChooseId,
+  chosenId,
+}: {
+  choices: ChoiceType[];
+  chosenId: string;
+  onChooseId: (id: string) => void;
+}) {
+  return (
+    <div style={{ marginLeft: 20 }}>
+      {choices.map((choice) => (
+        <InnerChoice
+          key={choice.id}
+          choice={choice}
+          chosenId={chosenId}
+          onChooseId={onChooseId}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Choice({ choices, state }: ChoiceProps) {
   const [mobileExpanded, setMobileExpanded] = useState(false);
   const [chosenId, setChosenId] = state ?? ["", () => {}];
@@ -153,14 +211,21 @@ export function Choice({ choices, state }: ChoiceProps) {
                 />
               </div>
               {filteredChoices.map((choice) => (
-                <div
-                  key={choice.id}
-                  className={c([s.choice, { active: choice.id === chosenId }])}
-                  onClick={select(choice.id)}
-                >
-                  <Img sideLength={40} src={choice.img} color={choice.color} />
-                  <div className={s.choiceName}>{choice.name}</div>
-                </div>
+                <>
+                  <InnerChoice
+                    key={choice.id}
+                    choice={choice}
+                    chosenId={chosenId}
+                    onChooseId={select}
+                  />
+                  {choice.children && choice.children.length > 0 && (
+                    <InnerChoices
+                      choices={choice.children}
+                      onChooseId={select}
+                      chosenId={chosenId}
+                    />
+                  )}
+                </>
               ))}
               {choices.length > 0 && filteredChoices.length === 0 && (
                 <span>Nothing found 👀</span>

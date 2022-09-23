@@ -14,25 +14,22 @@ const getImage = () => {
   i++;
   return img;
 };
-function createChoice(): ChoiceType {
-  return {
-    id: faker.random.alphaNumeric(10),
-    img: getImage(),
-    color: faker.color.hsl(),
-    name: faker.lorem.word(),
-    children: [],
-  };
-}
 
-function createChoices(count: number) {
+function createChoices(count: number, levels: number): ChoiceType[] {
   const arr = new Array(count);
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = createChoice();
+    arr[i] = {
+      id: faker.random.alphaNumeric(10),
+      img: getImage(),
+      color: faker.color.hsl(),
+      name: faker.lorem.word(),
+      children: levels ? createChoices(3, levels - 1) : [],
+    };
   }
   return arr;
 }
 
-const choices = createChoices(5);
+const choices = createChoices(5, 3);
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);

@@ -1,5 +1,6 @@
 Now:
 
+- Fix using "Choice" to refer to both the individual choice, and the full choice component
 - mobile: keep opened menu right below the chooser
   - if chooser is too low, then covering is ok
 

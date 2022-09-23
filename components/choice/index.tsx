@@ -83,7 +83,7 @@ function InnerChoice({
         className={c([
           s.choice,
           {
-            active: choice.id === chosenId,
+            [s.active]: choice.id === chosenId,
           },
         ])}
         onClick={() => onChooseId(choice.id)}
@@ -166,7 +166,7 @@ export function Choice({ choices, state }: ChoiceProps) {
   };
   const select = (id: ChoiceType["id"]) => {
     setChosenId(id);
-    close();
+    // close();
   };
   // misc
   useOnWindowEscape(close);
@@ -228,21 +228,12 @@ export function Choice({ choices, state }: ChoiceProps) {
                 />
               </div>
               {filteredChoices.map((choice) => (
-                <>
-                  <InnerChoice
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
-                    onChooseId={select}
-                  />
-                  {choice.children && choice.children.length > 0 && (
-                    <InnerChoices
-                      choices={choice.children}
-                      onChooseId={select}
-                      chosenId={chosenId}
-                    />
-                  )}
-                </>
+                <InnerChoice
+                  key={choice.id}
+                  choice={choice}
+                  chosenId={chosenId}
+                  onChooseId={select}
+                />
               ))}
               {choices.length > 0 && filteredChoices.length === 0 && (
                 <span>Nothing found 👀</span>

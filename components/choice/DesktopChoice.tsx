@@ -4,9 +4,9 @@ import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./MenuItem";
 import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
-import { useCurrentChoice } from "./useCurrentChoice";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 import { motion, AnimatePresence } from "framer-motion";
+import { useChoiceById } from "./useChoiceById";
 
 console.log("loaded DesktopChoice!");
 
@@ -106,16 +106,20 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   const [chosenId, setChosenId] = state ?? ["", () => {}];
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-
-  const currentChoice = useCurrentChoice(chosenId, choices);
+  const choiceById = useChoiceById(choices);
 
   // actions
   const open = () => setIsOpen(true);
   const close = useCallback(() => setIsOpen(false), []);
   const select = (id: ChoiceType["id"]) => {
-    setChosenId(id);
-    // close();
+    const children = choiceById(id).children;
+    if (children && children.length > 0) {
+    } else {
+      setChosenId(id);
+      close();
+    }
   };
+
   // misc
   useOnWindowEscape(close);
 
@@ -130,7 +134,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   return (
     <>
       <button className={s.choiceButton} {...triggerProps} onClick={open}>
-        <CurrentChoice choice={currentChoice} />
+        <CurrentChoice choice={choiceById(chosenId)} />
       </button>
       {isOpen &&
         renderLayer(

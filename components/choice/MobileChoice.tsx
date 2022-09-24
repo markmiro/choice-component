@@ -5,6 +5,7 @@ import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useChoiceById } from "./useChoiceById";
 import { useOnWindowEscape } from "./useOnWindowEscape";
+import { useLockedBody } from "usehooks-ts";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -34,6 +35,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   };
   // misc
   useOnWindowEscape(close);
+  useLockedBody(isOpen);
 
   const isDrilling = chosenIdPath.length > 0;
   const currentChoices = isDrilling

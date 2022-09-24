@@ -8,6 +8,22 @@ import {
 import s from "./Choice.module.css";
 import { ChoiceType } from "./types";
 
+function searchChoices(choices: ChoiceType[], search: string) {
+  let results: ChoiceType[] = [];
+  for (let i = 0; i < choices.length; i++) {
+    const choice = choices[i];
+    const isMatch =
+      choice.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
+    if (isMatch) {
+      results.push(choice);
+    }
+    if (choice.children && choice.children.length > 0) {
+      results.push(...searchChoices(choice.children, search));
+    }
+  }
+  return results;
+}
+
 export function SearchChoices({
   value,
   onChange,
@@ -29,10 +45,7 @@ export function SearchChoices({
     searchInputRef?.current?.focus();
   }, [searchInputRef]);
 
-  const filteredChoices = choices.filter((choice: ChoiceType) =>
-    // TODO: what about children matching the search?
-    search ? choice.name.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
-  );
+  const filteredChoices = searchChoices(choices, search);
 
   return (
     <div className={s.searchWrapper}>
@@ -45,7 +58,10 @@ export function SearchChoices({
       />
       {search &&
         filteredChoices.map((choice) => (
-          <div key={choice.id}>{choice.name}</div>
+          <div key={choice.id}>
+            <pre style={{ display: "inline", marginRight: 5 }}>{choice.id}</pre>
+            {choice.name}
+          </div>
         ))}
       {choices.length > 0 && filteredChoices.length === 0 && (
         <span>Nothing found 👀</span>

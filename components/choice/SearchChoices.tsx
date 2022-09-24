@@ -5,7 +5,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import s from "./Choice.module.css";
+import s from "./SearchChoices.module.css";
 import { ChoiceType } from "./types";
 
 function searchChoices(choices: ChoiceType[], search: string) {
@@ -55,6 +55,7 @@ export function SearchChoices({
     <div className={s.searchWrapper}>
       <input
         ref={searchInputRef}
+        placeholder="Search"
         className={s.search}
         value={search}
         onChange={(e) => setSearch(e.target.value)}

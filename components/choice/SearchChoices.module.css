@@ -1,0 +1,19 @@
+.searchWrapper {
+  padding: 6px 12px 8px;
+}
+.search {
+  width: 100%;
+  font-size: inherit;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 9px;
+  padding: 8px 12px;
+  color: #303a4a;
+  line-height: 20px;
+}
+.search:focus {
+  outline: 2px solid var(--purple);
+}
+.search::placeholder {
+  opacity: 0.5;
+}

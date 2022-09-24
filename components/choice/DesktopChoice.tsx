@@ -135,6 +135,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   const { triggerProps, layerProps, renderLayer } = useLayer({
     isOpen,
     placement: "bottom-start",
+    triggerOffset: 4,
     containerOffset: 0,
     auto: true,
     onOutsideClick: close,

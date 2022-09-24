@@ -7,6 +7,7 @@
   height: 40px;
   padding: 10px 12px;
   width: 100%;
+  max-width: 315px;
   text-align: start;
   position: relative;
 

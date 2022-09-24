@@ -47,12 +47,12 @@ type MenuItemPropsType = {
   choice: ChoiceType;
   chosenId: string;
   onChooseId: (id: string) => void;
-} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+} & DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-export const MenuItem = forwardRef<HTMLDivElement, MenuItemPropsType>(
+export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
   function MenuItem({ choice, onChooseId, chosenId, ...rest }, ref) {
     return (
-      <div
+      <button
         ref={ref}
         className={c([
           s.menuItem,
@@ -65,8 +65,17 @@ export const MenuItem = forwardRef<HTMLDivElement, MenuItemPropsType>(
       >
         <Img sideLength={40} src={choice.img} color={choice.color} />
         <div className={s.menuItemName}>{choice.name}</div>
-        {choice.children && choice.children.length > 0 && <>→</>}
-      </div>
+        {choice.children && choice.children.length > 0 && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className={s.menuItemIcon}
+            src="/icons/popover-select.svg"
+            width={8}
+            height={14}
+            alt=""
+          />
+        )}
+      </button>
     );
   }
 );

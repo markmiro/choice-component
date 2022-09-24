@@ -40,6 +40,7 @@ function createChoices(count: number, levels: number): ChoiceType[] {
   return arr;
 }
 
+const singleChoice = createChoice();
 const choiceVariations = {
   None: [] as ChoiceType[],
   One: createChoices(1, 0),
@@ -107,11 +108,11 @@ const Home: NextPage = () => {
           }}
         >
           <ChoiceButton>
-            <CurrentChoice choice={createChoice()} />
+            <CurrentChoice choice={singleChoice} />
           </ChoiceButton>
 
           <ChoiceButton style={{ width: 200 }}>
-            <CurrentChoice choice={createChoice()} />
+            <CurrentChoice choice={singleChoice} />
           </ChoiceButton>
 
           {Object.keys(choiceVariations).map((key) => (

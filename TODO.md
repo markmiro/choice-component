@@ -6,6 +6,7 @@ Now:
 
 Polish steps:
 
+- revisit z-index strategy with react-laag: https://github.com/everweij/react-laag#z-index--container
 - highlight all the active menu items along the way
 - ensure memory is released
 - close button for mobile?

@@ -4,10 +4,18 @@
   padding: 10px;
 }
 
-.mobileExpanded {
-  background: green;
+.mobileHandle {
+  background: transparent;
+  border: none;
   height: 2px;
   padding: 10px;
+}
+.mobileHandleInner {
+  height: 3px;
+  background: #e4e9f0;
+  width: 38px;
+  margin: 0 auto;
+  border-radius: 999px;
 }
 
 .menu {
@@ -32,24 +40,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ff000099;
 }
 
 .menuMobile {
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
 
   max-height: 50vh;
-  background: yellow;
+  background: white;
 
   display: flex;
   flex-direction: column;
+}
+.menuMobileScroll {
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 .menuMobile.menuExpanded {
   height: 100%;
   max-height: 100vh;
+}
+
+.mobileBackButton {
+  cursor: pointer;
+  background: transparent;
+  border: none;
 }

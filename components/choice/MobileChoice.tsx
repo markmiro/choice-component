@@ -55,7 +55,13 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
           <div
             className={`${s.menuMobile} ${mobileExpanded && s.menuExpanded}`}
           >
-            <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
+            <button
+              className={s.mobileHandle}
+              onClick={toggleMobileExpanded}
+              style={{ marginBottom: -4 }}
+            >
+              <div className={s.mobileHandleInner} />
+            </button>
             {!isDrilling && (
               <SearchChoices
                 value={search}
@@ -63,18 +69,25 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                 choices={choices}
               />
             )}
-            <div className={s.mobileBackWrapper}>
-              {isDrilling && <button onClick={back}>Back</button>}
-              <pre>{chosenIdPath.join(" > ")}</pre>
+            {isDrilling && (
+              <div className={s.mobileBackWrapper}>
+                <button className={s.mobileBackButton} onClick={back}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/icons/back.svg" width={18} height={16} alt="" />
+                </button>
+                {/* <pre>{chosenIdPath.join(" > ")}</pre> */}
+              </div>
+            )}
+            <div className={s.menuMobileScroll}>
+              {currentChoices.map((choice) => (
+                <MenuItem
+                  key={choice.id}
+                  choice={choice}
+                  chosenId={chosenId}
+                  onChooseId={select}
+                />
+              ))}
             </div>
-            {currentChoices.map((choice) => (
-              <MenuItem
-                key={choice.id}
-                choice={choice}
-                chosenId={chosenId}
-                onChooseId={select}
-              />
-            ))}
           </div>
         </Portal>
       )}

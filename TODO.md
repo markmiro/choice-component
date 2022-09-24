@@ -1,12 +1,10 @@
 Now:
 
-- don't allow selecting items with children
 - ensure that multiple Choice compnents don't conflict with one another
 - ensure choices works with empty children and with undefined children
 
 Polish steps:
 
-- revisit z-index strategy with react-laag: https://github.com/everweij/react-laag#z-index--container
 - highlight all the active menu items along the way
 - ensure memory is released
 - close button for mobile?
@@ -20,14 +18,8 @@ Polish steps:
 - drag down expander bar closes menu
 - html viewport sizing
 - ensure menu scrolls with bounce on ios and mobile
-- esc key to close choices
-- word wrapping
 - arrow and search icons
-- framer-motion
-- Lazy load laag for desktop so it's not loaded on mobile
 - drag top (on mobile) to increase to full height
-- Install Inter font
-- Use tailwind?
 
 Done
 

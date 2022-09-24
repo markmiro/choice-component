@@ -45,7 +45,7 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
 
 type MenuItemPropsType = {
   choice: ChoiceType;
-  chosenId: string;
+  chosenId?: string;
   onChooseId: (id: string) => void;
 } & DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 

@@ -28,12 +28,18 @@ export function SearchChoices({
   value,
   onChange,
   choices,
+  onChooseId,
   autoFocus = false,
+  itemComponent,
+  itemWithChildrenComponent,
 }: {
   value: string;
   onChange: Dispatch<SetStateAction<string>>;
   choices: ChoiceType[];
+  onChooseId: (id: string) => void;
   autoFocus?: boolean;
+  itemComponent: any;
+  itemWithChildrenComponent: any;
 }) {
   const [search, setSearch] = [value, onChange];
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -51,26 +57,45 @@ export function SearchChoices({
 
   const filteredChoices = searchChoices(choices, search);
 
+  const MenuItem = itemComponent;
+  const MenuItemWithChildren = itemWithChildrenComponent;
+
   return (
-    <div className={s.searchWrapper}>
-      <input
-        ref={searchInputRef}
-        placeholder="Search"
-        className={s.search}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={handleInputEsc}
-      />
-      {search &&
-        filteredChoices.map((choice) => (
-          <div key={choice.id}>
-            <pre style={{ display: "inline", marginRight: 5 }}>{choice.id}</pre>
-            {choice.name}
-          </div>
-        ))}
-      {choices.length > 0 && filteredChoices.length === 0 && (
-        <span>Nothing found 👀</span>
+    <>
+      <div className={s.searchWrapper}>
+        <input
+          ref={searchInputRef}
+          placeholder="Search"
+          className={s.search}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleInputEsc}
+        />
+      </div>
+      {search && (
+        <div className={s.searchScroll}>
+          {filteredChoices.map(
+            (choice) =>
+              choice.children && choice.children.length > 0 ? (
+                <MenuItemWithChildren
+                  key={choice.id}
+                  choice={choice}
+                  onChooseId={onChooseId}
+                />
+              ) : (
+                <MenuItem
+                  key={choice.id}
+                  choice={choice}
+                  onChooseId={onChooseId}
+                />
+              )
+            // <MenuItem key={choice.id} choice={choice} onChooseId={onChooseId} />
+          )}
+        </div>
       )}
-    </div>
+      {choices.length > 0 && filteredChoices.length === 0 && (
+        <div style={{ padding: 12 }}>Nothing found 👀</div>
+      )}
+    </>
   );
 }

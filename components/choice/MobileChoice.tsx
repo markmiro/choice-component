@@ -66,7 +66,10 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
               <SearchChoices
                 value={search}
                 onChange={setSearch}
+                onChooseId={select}
                 choices={choices}
+                itemComponent={MenuItem}
+                itemWithChildrenComponent={MenuItem}
               />
             )}
             {isDrilling && (
@@ -75,19 +78,20 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/icons/back.svg" width={18} height={16} alt="" />
                 </button>
-                {/* <pre>{chosenIdPath.join(" > ")}</pre> */}
               </div>
             )}
-            <div className={s.menuMobileScroll}>
-              {currentChoices.map((choice) => (
-                <MenuItem
-                  key={choice.id}
-                  choice={choice}
-                  chosenId={chosenId}
-                  onChooseId={select}
-                />
-              ))}
-            </div>
+            {(!search || isDrilling) && (
+              <div className={s.menuMobileScroll}>
+                {currentChoices.map((choice) => (
+                  <MenuItem
+                    key={choice.id}
+                    choice={choice}
+                    chosenId={chosenId}
+                    onChooseId={select}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </Portal>
       )}

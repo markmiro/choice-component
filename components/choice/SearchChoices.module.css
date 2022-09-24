@@ -17,3 +17,9 @@
 .search::placeholder {
   opacity: 0.5;
 }
+
+.searchScroll {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}

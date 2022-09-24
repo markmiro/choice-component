@@ -46,7 +46,7 @@ const choiceVariations = {
   One: createChoices(1, 0),
   Basic: createChoices(3, 0),
   Medium: createChoices(3, 1),
-  Advanced: createChoices(10, 3),
+  Advanced: createChoices(10, 2),
 };
 type KeyType = keyof typeof choiceVariations;
 

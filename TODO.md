@@ -1,6 +1,6 @@
 Now:
 
-- ensure that multiple Choice compnents don't conflict with one another
+- search icon
 - ensure choices works with empty children and with undefined children
 
 Polish steps:
@@ -18,7 +18,6 @@ Polish steps:
 - drag down expander bar closes menu
 - html viewport sizing
 - ensure menu scrolls with bounce on ios and mobile
-- arrow and search icons
 - drag top (on mobile) to increase to full height
 
 Done

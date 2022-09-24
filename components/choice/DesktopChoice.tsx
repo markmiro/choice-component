@@ -39,7 +39,6 @@ function MenuItemWithChildren({
   return (
     <>
       <MenuItem
-        key={choice.id}
         choice={choice}
         chosenId={chosenId}
         onChooseId={onChooseId}
@@ -154,7 +153,10 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
               value={search}
               onChange={setSearch}
               choices={choices}
+              onChooseId={select}
               autoFocus
+              itemComponent={MenuItem}
+              itemWithChildrenComponent={MenuItemWithChildren}
             />
             {!search &&
               choices.map((choice) =>

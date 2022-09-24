@@ -11,6 +11,10 @@
   text-align: start;
   position: relative;
 
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+
   display: flex;
   align-items: center;
   gap: 8px;

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
+import { DetailedHTMLProps, forwardRef, HTMLAttributes, useId } from "react";
 import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
@@ -12,19 +12,36 @@ function Img({
   color: number[];
   src: string;
 }) {
+  const id = useId();
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt=""
-      loading="lazy"
-      className={s.img}
+    <div
       style={{
         backgroundColor: `hsl(${color[0]}deg, 100%, 80%)`,
-        width: sideLength,
-        height: sideLength,
+        borderRadius: 4,
+        overflow: "hidden",
+        flexShrink: 0,
       }}
-    />
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        id={id}
+        onLoad={(e) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.style.transition = "opacity 200ms ease-out";
+          el.style.opacity = "1";
+        }}
+        src={src}
+        alt=""
+        loading="lazy"
+        className={s.img}
+        style={{
+          opacity: 0,
+          width: sideLength,
+          height: sideLength,
+        }}
+      />
+    </div>
   );
 }
 

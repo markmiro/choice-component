@@ -13,6 +13,12 @@
   width: 100%;
 }
 
+.mobileBackWrapper {
+  position: sticky;
+  top: 0;
+  padding: 10px;
+}
+
 .mobileExpanded {
   background: green;
   height: 2px;

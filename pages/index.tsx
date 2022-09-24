@@ -13,8 +13,8 @@ faker.seed(1);
 
 let i = 0;
 const getImage = () => {
-  // `% 101` to wrap since big ids don't have images, and want a number that's not so predictable
-  const img = `https://picsum.photos/id/${(i + 10) % 101}/80`;
+  // `% 31` to wrap since big ids don't have images, and want a number that's not so predictable
+  const img = `https://picsum.photos/id/${(i % 31) + 10}/80`;
   i++;
   return img;
 };
@@ -62,6 +62,21 @@ const Home: NextPage = () => {
     // I know it's "bad", but this will execute in the same order each time
     // eslint-disable-next-line react-hooks/rules-of-hooks
     choiceVariationsState[key] = useState<string>("");
+  });
+
+  let choiceVariationsState2: Record<
+    string,
+    [string, Dispatch<SetStateAction<string>>]
+  > = {};
+  Object.keys(choiceVariations).forEach((key) => {
+    let choice = choiceVariations[key as KeyType]?.[0];
+    // select the most nested component
+    while (choice && choice.children && choice.children.length > 0) {
+      choice = choice.children[0];
+    }
+    // I know it's "bad", but this will execute in the same order each time
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    choiceVariationsState2[key] = useState<string>(choice?.id);
   });
 
   return (
@@ -122,10 +137,17 @@ const Home: NextPage = () => {
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
               <h3>{key}</h3>
-              <Choice
-                choices={choiceVariations[key as KeyType]}
-                state={choiceVariationsState[key]}
-              />
+              <div>
+                <Choice
+                  choices={choiceVariations[key as KeyType]}
+                  state={choiceVariationsState[key]}
+                />
+                <br />
+                <Choice
+                  choices={choiceVariations[key as KeyType]}
+                  state={choiceVariationsState2[key]}
+                />
+              </div>
             </div>
           ))}
         </div>

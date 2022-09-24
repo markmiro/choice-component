@@ -5,8 +5,8 @@ Now:
 - mobile: scroll to top on each drill
 - search icon
 - ensure choices works with empty children and with undefined children
-- animate
-- fade in images on load
+- animate transitions
+- fix lock body scroll
 
 Polish steps:
 

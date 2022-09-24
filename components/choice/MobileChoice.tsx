@@ -6,6 +6,7 @@ import { ChoiceProps, ChoiceType } from "./types";
 import { useChoiceById } from "./useChoiceById";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 import { useLockedBody } from "usehooks-ts";
+import { Portal } from "react-portal";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -48,7 +49,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
         <CurrentChoice choice={choiceById(chosenId)} />
       </button>
       {isOpen && (
-        <>
+        <Portal>
           <Overlay onClick={close} />
           <div
             className={`${s.menuMobile} ${mobileExpanded && s.menuExpanded}`}
@@ -74,7 +75,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
               />
             ))}
           </div>
-        </>
+        </Portal>
       )}
     </>
   );

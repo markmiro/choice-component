@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import "@markmiro/css-base";
+import "normalize.css";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";

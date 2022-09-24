@@ -31,7 +31,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   const back = () => setChosenIdPath((p) => p.slice(0, -1));
   const toggleMobileExpanded = () => setMobileExpanded((s) => !s);
   const select = (id: ChoiceType["id"]) => {
-    const children = choiceById(id)?.children;
+    const children = choiceById.get(id)?.children;
     if (children && children.length > 0) {
       setChosenIdPath((p) => [...p, id]);
     } else {
@@ -45,7 +45,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
 
   const isDrilling = chosenIdPath.length > 0;
   const currentChoices = isDrilling
-    ? choiceById(chosenIdPath[chosenIdPath.length - 1]).children
+    ? choiceById.get(chosenIdPath[chosenIdPath.length - 1]).children
     : choices;
 
   return (
@@ -55,7 +55,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
         onClick={open}
         disabled={!choices || choices.length === 0}
       >
-        <CurrentChoice choice={choiceById(chosenId)} />
+        <CurrentChoice choice={choiceById.get(chosenId)} />
       </ChoiceButton>
       {isOpen && (
         <Portal>
@@ -70,7 +70,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
             >
               <div className={s.mobileHandleInner} />
             </button>
-            {!isDrilling && (
+            {!isDrilling && choiceById.count > 5 && (
               <SearchChoices
                 value={search}
                 onChange={setSearch}

@@ -125,7 +125,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
     choiceButtonRef.current?.focus({ preventScroll: true });
   };
   const select = (id: ChoiceType["id"]) => {
-    const children = choiceById(id).children;
+    const children = choiceById.get(id).children;
     if (children && children.length > 0) {
     } else {
       setChosenId(id);
@@ -152,20 +152,22 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
         onClick={open}
         disabled={!choices || choices.length === 0}
       >
-        <CurrentChoice choice={choiceById(chosenId)} />
+        <CurrentChoice choice={choiceById.get(chosenId)} />
       </ChoiceButton>
       {isOpen &&
         renderLayer(
           <div {...layerProps} className={s.menu}>
-            <SearchChoices
-              value={search}
-              onChange={setSearch}
-              choices={choices}
-              onChooseId={select}
-              autoFocus
-              itemComponent={MenuItem}
-              itemWithChildrenComponent={MenuItemWithChildren}
-            />
+            {choiceById.count > 5 && (
+              <SearchChoices
+                value={search}
+                onChange={setSearch}
+                choices={choices}
+                onChooseId={select}
+                autoFocus
+                itemComponent={MenuItem}
+                itemWithChildrenComponent={MenuItemWithChildren}
+              />
+            )}
             {!search &&
               choices.map((choice) =>
                 choice.children && choice.children.length > 0 ? (

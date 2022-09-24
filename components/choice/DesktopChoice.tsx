@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useHover, useLayer } from "react-laag";
+import { useRef, useState } from "react";
+import { mergeRefs, useHover, useLayer } from "react-laag";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
 import { SearchChoices } from "./SearchChoices";
@@ -116,10 +116,14 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const choiceById = useChoiceById(choices);
+  const choiceButtonRef = useRef<HTMLButtonElement>(null);
 
   // actions
   const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const close = () => {
+    setIsOpen(false);
+    choiceButtonRef.current?.focus({ preventScroll: true });
+  };
   const select = (id: ChoiceType["id"]) => {
     const children = choiceById(id).children;
     if (children && children.length > 0) {
@@ -144,7 +148,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   return (
     <>
       <ChoiceButton
-        {...triggerProps}
+        ref={mergeRefs(triggerProps.ref, choiceButtonRef)}
         onClick={open}
         disabled={!choices || choices.length === 0}
       >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
 import { SearchChoices } from "./SearchChoices";
@@ -20,10 +20,14 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const choiceById = useChoiceById(choices);
+  const choiceButtonRef = useRef<HTMLButtonElement>(null);
 
   // actions
   const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const close = () => {
+    setIsOpen(false);
+    choiceButtonRef.current?.focus();
+  };
   const back = () => setChosenIdPath((p) => p.slice(0, -1));
   const toggleMobileExpanded = () => setMobileExpanded((s) => !s);
   const select = (id: ChoiceType["id"]) => {
@@ -46,7 +50,11 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
 
   return (
     <>
-      <ChoiceButton onClick={open} disabled={!choices || choices.length === 0}>
+      <ChoiceButton
+        ref={choiceButtonRef}
+        onClick={open}
+        disabled={!choices || choices.length === 0}
+      >
         <CurrentChoice choice={choiceById(chosenId)} />
       </ChoiceButton>
       {isOpen && (

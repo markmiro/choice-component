@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
 import { SearchChoices } from "./SearchChoices";
@@ -19,7 +19,10 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const choiceById = useChoiceById(choices);
+
+  // refs
   const choiceButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // actions
   const open = () => setIsOpen(true);
@@ -38,6 +41,11 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
       close();
     }
   };
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [chosenIdPath]);
+
   // misc
   useOnWindowEscape(close);
 
@@ -88,7 +96,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
               </div>
             )}
             {(!search || isDrilling) && (
-              <div className={s.menuMobileScroll}>
+              <div className={s.menuMobileScroll} ref={scrollRef}>
                 {currentChoices.map((choice) => (
                   <MenuItem
                     key={choice.id}

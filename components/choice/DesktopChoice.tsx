@@ -53,8 +53,16 @@ function MenuItemWithChildren({
               {...hoverProps}
               className={s.menu}
               transition={{ duration: 0.1 }}
-              initial={{ opacity: 0.2, translateY: 15 }}
-              animate={{ opacity: 1, translateY: 0 }}
+              initial={{
+                opacity: 0,
+                translateY: 5,
+                scale: 0.95,
+              }}
+              animate={{
+                opacity: 1,
+                translateY: 0,
+                scale: 1,
+              }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
             >
               <MenuItems

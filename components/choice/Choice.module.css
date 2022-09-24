@@ -52,7 +52,7 @@
   border-bottom: 1px solid blue;
   gap: 10px;
 }
-.menuItem img {
+.menuItem .img {
   flex-shrink: 0;
 }
 .menuItem:hover {

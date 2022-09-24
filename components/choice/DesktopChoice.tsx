@@ -151,6 +151,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
               value={search}
               onChange={setSearch}
               choices={choices}
+              autoFocus
             />
             {!search &&
               choices.map((choice) =>

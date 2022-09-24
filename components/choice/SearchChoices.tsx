@@ -28,10 +28,12 @@ export function SearchChoices({
   value,
   onChange,
   choices,
+  autoFocus = false,
 }: {
   value: string;
   onChange: Dispatch<SetStateAction<string>>;
   choices: ChoiceType[];
+  autoFocus?: boolean;
 }) {
   const [search, setSearch] = [value, onChange];
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -42,8 +44,10 @@ export function SearchChoices({
     }
   };
   useEffect(() => {
-    searchInputRef?.current?.focus();
-  }, [searchInputRef]);
+    if (autoFocus) {
+      searchInputRef?.current?.focus();
+    }
+  }, [searchInputRef, autoFocus]);
 
   const filteredChoices = searchChoices(choices, search);
 

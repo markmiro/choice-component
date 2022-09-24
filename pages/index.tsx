@@ -3,8 +3,7 @@ import "@markmiro/css-base";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import { Choice } from "../components/choice";
-import { ChoiceType } from "../components/choice/types";
+import { Choice, ChoiceType } from "../components/choice";
 import styles from "../styles/Home.module.css";
 
 faker.seed(1);

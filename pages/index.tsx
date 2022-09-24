@@ -1,10 +1,11 @@
+import { faker } from "@faker-js/faker";
+import "@markmiro/css-base";
 import type { NextPage } from "next";
 import Head from "next/head";
-import "@markmiro/css-base";
-import styles from "../styles/Home.module.css";
-import { Choice, ChoiceType } from "../components/choice";
-import { faker } from "@faker-js/faker";
 import { useState } from "react";
+import { Choice } from "../components/choice";
+import { ChoiceType } from "../components/choice/types";
+import styles from "../styles/Home.module.css";
 
 faker.seed(1);
 

@@ -1,33 +1,15 @@
 import {
-  DetailedHTMLProps,
-  Dispatch,
-  forwardRef,
-  HTMLAttributes,
   KeyboardEventHandler,
-  SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import s from "./Choice.module.css";
-import c from "classnames";
 import { useHover, useLayer } from "react-laag";
-import { Img } from "./Img";
-
-export type ChoiceType = {
-  id: string;
-  img: string;
-  color: number[];
-  name: string;
-  children: ChoiceType[];
-};
-
-type ChoiceProps = {
-  choices: ChoiceType[];
-  state: [id: string, setId: Dispatch<SetStateAction<string>>];
-};
+import s from "./Choice.module.css";
+import { CurrentChoice, InnerChoice } from "./InnerChoice";
+import { ChoiceProps, ChoiceType } from "./types";
 
 function useOnWindowEscape(action: () => void) {
   useEffect(() => {
@@ -42,34 +24,6 @@ function useOnWindowEscape(action: () => void) {
     };
   }, [action]);
 }
-
-type InnerChoicePropsType = {
-  choice: ChoiceType;
-  chosenId: string;
-  onChooseId: (id: string) => void;
-} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-
-const InnerChoice = forwardRef<HTMLDivElement, InnerChoicePropsType>(
-  function InnerChoice({ choice, onChooseId, chosenId, ...rest }, ref) {
-    return (
-      <div
-        ref={ref}
-        className={c([
-          s.choice,
-          {
-            [s.active]: choice.id === chosenId,
-          },
-        ])}
-        onClick={() => onChooseId(choice.id)}
-        {...rest}
-      >
-        <Img sideLength={40} src={choice.img} color={choice.color} />
-        <div className={s.choiceName}>{choice.name}</div>
-        {choice.children && choice.children.length > 0 && <>→</>}
-      </div>
-    );
-  }
-);
 
 function InnerChoiceWithChildren({
   choice,
@@ -218,18 +172,7 @@ export function Choice({ choices, state }: ChoiceProps) {
   return (
     <>
       <div className={s.chosenBox} {...triggerProps} onClick={open}>
-        {currentChoice ? (
-          <div style={{ display: "flex", width: "100%", minWidth: 315 }}>
-            <Img
-              sideLength={24}
-              src={currentChoice.img}
-              color={currentChoice.color}
-            />
-            <div>{currentChoice.name}</div>
-          </div>
-        ) : (
-          "Choose something"
-        )}
+        <CurrentChoice choice={currentChoice} />
       </div>
       {isOpen &&
         renderLayer(

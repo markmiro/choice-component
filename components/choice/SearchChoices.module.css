@@ -20,6 +20,7 @@
 
 .searchScroll {
   overflow: scroll;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
 }

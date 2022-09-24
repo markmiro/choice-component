@@ -30,6 +30,7 @@
   flex-direction: column;
   max-height: 100vh;
   overflow: scroll;
+  overscroll-behavior: contain;
   /* position relative required by react-laag: https://github.com/everweij/react-laag#relative-positioning */
   position: relative;
 }

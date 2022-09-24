@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import "@markmiro/css-base";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useState } from "react";
 import { Choice, ChoiceType } from "../components/choice";
 import styles from "../styles/Home.module.css";
@@ -48,18 +49,27 @@ const Home: NextPage = () => {
         <a href="https://www.figma.com/file/gXlpBINSgg129W887h5ygW/Choice-Component?node-id=0%3A1">
           Figma File
         </a>
+
+        <Image src="/icons/back.svg" width={18} height={16} alt="" />
+        <Image src="/icons/chevron-down.svg" width={12} height={7} alt="" />
+        <Image src="/icons/popover-select.svg" width={8} height={14} alt="" />
+        <Image src="/icons/search.svg" width={19} height={19} alt="" />
+
+        <br />
+
+        <button
+          onClick={toggleShowChoice}
+          style={{
+            top: 0,
+            position: "absolute",
+            zIndex: 9999,
+          }}
+        >
+          Toggle show choice
+        </button>
+
+        {showChoice && <Choice choices={choices} state={choiceState} />}
       </main>
-      <button
-        onClick={toggleShowChoice}
-        style={{
-          top: 0,
-          position: "absolute",
-          zIndex: 9999,
-        }}
-      >
-        Toggle show choice
-      </button>
-      {showChoice && <Choice choices={choices} state={choiceState} />}
     </div>
   );
 };

@@ -29,10 +29,6 @@ type ChoiceProps = {
   state: [id: string, setId: Dispatch<SetStateAction<string>>];
 };
 
-function Overlay({ onClick }: { onClick?: () => void }) {
-  return <div className={s.overlay} onClick={() => onClick?.()} />;
-}
-
 function useOnWindowEscape(action: () => void) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -237,7 +233,6 @@ export function Choice({ choices, state }: ChoiceProps) {
       </div>
       {isOpen && (
         <>
-          {/* <Overlay onClick={close} /> */}
           {renderLayer(
             <div
               {...layerProps}

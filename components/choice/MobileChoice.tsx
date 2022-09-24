@@ -52,6 +52,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
     <>
       <ChoiceButton
         ref={choiceButtonRef}
+        isActive={isOpen}
         onClick={open}
         disabled={!choices || choices.length === 0}
       >

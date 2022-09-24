@@ -150,6 +150,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
       <ChoiceButton
         ref={mergeRefs(triggerProps.ref, choiceButtonRef)}
         onClick={open}
+        isActive={isOpen}
         disabled={!choices || choices.length === 0}
       >
         <CurrentChoice choice={choiceById.get(chosenId)} />

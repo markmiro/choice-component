@@ -19,7 +19,8 @@
   align-items: center;
   gap: 8px;
 }
-.button:focus {
+.button:focus,
+.button.buttonActive {
   outline: 2px solid var(--purple);
 }
 .button:disabled {

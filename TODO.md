@@ -1,11 +1,6 @@
 Now:
 
-- fix search to work with nested results (just show the results inline, just like iOS settings search)
-- don't use react-laag on mobile (fix not showing on mobile)
-- make selecting work
-
-- mobile: keep opened menu right below the chooser
-  - if chooser is too low, then covering is ok
+- don't allow selecting items with children
 
 Polish steps:
 

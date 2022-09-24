@@ -6,6 +6,10 @@ import { ChoiceProps, ChoiceType } from "./types";
 import { useCurrentChoice } from "./useCurrentChoice";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 
+function Overlay({ onClick }: { onClick?: () => void }) {
+  return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
+}
+
 export function MobileChoice({ choices, state }: ChoiceProps) {
   const [mobileExpanded, setMobileExpanded] = useState(false);
   const [chosenId, setChosenId] = state ?? ["", () => {}];
@@ -31,23 +35,28 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
         <CurrentChoice choice={currentChoice} />
       </button>
       {isOpen && (
-        <div className={`${s.menu} ${mobileExpanded && s.menuExpanded}`}>
-          <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
-          <SearchChoices
-            value={search}
-            onChange={setSearch}
-            choices={choices}
-          />
-          {!search &&
-            choices.map((choice) => (
-              <MenuItem
-                key={choice.id}
-                choice={choice}
-                chosenId={chosenId}
-                onChooseId={select}
-              />
-            ))}
-        </div>
+        <>
+          <Overlay onClick={close} />
+          <div
+            className={`${s.menuMobile} ${mobileExpanded && s.menuExpanded}`}
+          >
+            <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
+            <SearchChoices
+              value={search}
+              onChange={setSearch}
+              choices={choices}
+            />
+            {!search &&
+              choices.map((choice) => (
+                <MenuItem
+                  key={choice.id}
+                  choice={choice}
+                  chosenId={chosenId}
+                  onChooseId={select}
+                />
+              ))}
+          </div>
+        </>
       )}
     </>
   );

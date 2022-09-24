@@ -26,6 +26,7 @@
 }
 
 .menu {
+  width: 315px;
   border: 1px solid;
   box-shadow: 0 5px 30px black;
   background: yellow;
@@ -56,25 +57,30 @@
   flex-grow: 1;
 }
 
-@media (width <= 400px) {
-  .menu {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 50vh;
-  }
-  .menu.menuExpanded {
-    height: 100%;
-    max-height: 100vh;
-  }
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff000099;
 }
 
-@media (width > 400px) {
-  .mobileExpanded {
-    display: none;
-  }
-  .menu {
-    width: 315px;
-  }
+.menuMobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  max-height: 50vh;
+  background: yellow;
+
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.menuMobile.menuExpanded {
+  height: 100%;
+  max-height: 100vh;
 }

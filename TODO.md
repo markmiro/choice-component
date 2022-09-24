@@ -1,9 +1,14 @@
 Now:
 
 - don't allow selecting items with children
+- ensure that multiple Choice compnents don't conflict with one another
+- ensure choices works with empty children and with undefined children
 
 Polish steps:
 
+- highlight all the active menu items along the way
+- ensure memory is released
+- close button for mobile?
 - test with scrollbars visible
 - use arrow keys to navigate
 - debounce search

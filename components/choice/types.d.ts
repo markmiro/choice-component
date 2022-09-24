@@ -1,7 +1,6 @@
 export type ChoiceType = {
   id: string;
   img: string;
-  color: number[];
   name: string;
   children: ChoiceType[];
 };

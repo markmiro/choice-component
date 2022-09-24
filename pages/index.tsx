@@ -125,6 +125,7 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
+        <div style={{ height: "50vh" }} />
       </main>
     </div>
   );

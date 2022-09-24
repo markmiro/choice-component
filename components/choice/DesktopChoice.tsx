@@ -52,7 +52,6 @@ function MenuItemWithChildren({
             <motion.div
               {...layerProps}
               {...hoverProps}
-              className={s.menu}
               transition={{ duration: 0.1 }}
               initial={{
                 opacity: 0,
@@ -66,11 +65,13 @@ function MenuItemWithChildren({
               }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
             >
-              <MenuItems
-                choices={choice.children}
-                onChooseId={onChooseId}
-                chosenId={chosenId}
-              />
+              <div className={s.menu} style={{ transform: "translateY(-8px" }}>
+                <MenuItems
+                  choices={choice.children}
+                  onChooseId={onChooseId}
+                  chosenId={chosenId}
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

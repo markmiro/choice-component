@@ -1,0 +1,42 @@
+.currentChoice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.currentChoiceText {
+  /* truncate with ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.img {
+  width: 40px;
+  height: 40px;
+  background: black;
+}
+
+.menuItem {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid blue;
+  gap: 10px;
+}
+.menuItem .img {
+  flex-shrink: 0;
+}
+.menuItem:hover {
+  background: magenta;
+}
+.menuItem.active {
+  background: green;
+}
+.menuItem .menuItemName {
+  flex-grow: 1;
+
+  /* truncate with ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

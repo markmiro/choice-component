@@ -1,9 +1,3 @@
-.choiceButton {
-  position: relative;
-  display: inline-block;
-  background: yellow;
-}
-
 .searchWrapper {
   position: sticky;
   top: 0;
@@ -25,12 +19,6 @@
   padding: 10px;
 }
 
-.img {
-  width: 40px;
-  height: 40px;
-  background: black;
-}
-
 .menu {
   width: 315px;
   border: 1px solid;
@@ -43,31 +31,6 @@
   overflow: scroll;
   /* position relative required by react-laag: https://github.com/everweij/react-laag#relative-positioning */
   position: relative;
-}
-
-.menuItem {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid blue;
-  gap: 10px;
-}
-.menuItem .img {
-  flex-shrink: 0;
-}
-.menuItem:hover {
-  background: magenta;
-}
-.menuItem.active {
-  background: green;
-}
-.menuItem .menuItemName {
-  flex-grow: 1;
-
-  /* truncate with ellipsis */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .mobileOverlay {

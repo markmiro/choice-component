@@ -1,12 +1,13 @@
 import { useState } from "react";
 import s from "./Choice.module.css";
-import { CurrentChoice, MenuItem } from "./MenuItem";
+import { CurrentChoice, MenuItem } from "./Item";
 import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useChoiceById } from "./useChoiceById";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 import { useLockedBody } from "usehooks-ts";
 import { Portal } from "react-portal";
+import { ChoiceButton } from "./ChoiceButton";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -45,9 +46,9 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
 
   return (
     <>
-      <button className={s.choiceButton} onClick={open}>
+      <ChoiceButton onClick={open}>
         <CurrentChoice choice={choiceById(chosenId)} />
-      </button>
+      </ChoiceButton>
       {isOpen && (
         <Portal>
           <Overlay onClick={close} />

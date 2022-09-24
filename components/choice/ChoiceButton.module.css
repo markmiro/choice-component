@@ -1,0 +1,35 @@
+.button {
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-md);
+  background: white;
+  border-radius: 9px;
+  height: 40px;
+  padding: 10px 12px;
+  width: 100%;
+  text-align: start;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.button:focus {
+  outline: 2px solid var(--purple);
+}
+
+.content {
+  flex-grow: 1;
+
+  /* truncate with ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  padding-right: 5px;
+  flex-shrink: 0;
+  /* tweak position */
+  transform: translateY(1px);
+}

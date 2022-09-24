@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
-import s from "./Choice.module.css";
+import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
 
@@ -32,9 +32,9 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
   return (
     <>
       {choice ? (
-        <div style={{ display: "flex", width: "100%", minWidth: 315 }}>
+        <div className={s.currentChoice}>
           <Img sideLength={24} src={choice.img} color={choice.color} />
-          <div>{choice.name}</div>
+          <div className={s.currentChoiceText}>{choice.name}</div>
         </div>
       ) : (
         "Choose something"

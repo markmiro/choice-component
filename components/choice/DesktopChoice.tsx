@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useHover, useLayer } from "react-laag";
 import s from "./Choice.module.css";
-import { CurrentChoice, MenuItem } from "./MenuItem";
+import { CurrentChoice, MenuItem } from "./Item";
 import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 import { motion, AnimatePresence } from "framer-motion";
 import { useChoiceById } from "./useChoiceById";
+import { ChoiceButton } from "./ChoiceButton";
 
 console.log("loaded DesktopChoice!");
 
@@ -141,9 +142,9 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
 
   return (
     <>
-      <button className={s.choiceButton} {...triggerProps} onClick={open}>
+      <ChoiceButton {...triggerProps} onClick={open}>
         <CurrentChoice choice={choiceById(chosenId)} />
-      </button>
+      </ChoiceButton>
       {isOpen &&
         renderLayer(
           <div {...layerProps} className={s.menu}>

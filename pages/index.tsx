@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Choice, ChoiceType } from "../components/choice";
 import styles from "../styles/Home.module.css";
+import { ChoiceButton } from "../components/choice/ChoiceButton";
+import { CurrentChoice } from "../components/choice/Item";
 
 faker.seed(1);
 
@@ -17,14 +19,21 @@ const getImage = () => {
   return img;
 };
 
+function createChoice() {
+  return {
+    id: faker.random.alphaNumeric(10),
+    img: getImage(),
+    color: faker.color.hsl(),
+    name: faker.lorem.sentence(),
+    children: [],
+  };
+}
+
 function createChoices(count: number, levels: number): ChoiceType[] {
   const arr = new Array(count);
   for (let i = 0; i < arr.length; i++) {
     arr[i] = {
-      id: faker.random.alphaNumeric(10),
-      img: getImage(),
-      color: faker.color.hsl(),
-      name: faker.lorem.sentence(),
+      ...createChoice(),
       children: levels ? createChoices(7, levels - 1) : [],
     };
   }
@@ -67,10 +76,10 @@ const Home: NextPage = () => {
           Figma File
         </a>
 
-        <Image src="/icons/back.svg" width={18} height={16} alt="" />
+        {/* <Image src="/icons/back.svg" width={18} height={16} alt="" />
         <Image src="/icons/chevron-down.svg" width={12} height={7} alt="" />
         <Image src="/icons/popover-select.svg" width={8} height={14} alt="" />
-        <Image src="/icons/search.svg" width={19} height={19} alt="" />
+        <Image src="/icons/search.svg" width={19} height={19} alt="" /> */}
 
         <br />
 
@@ -89,7 +98,22 @@ const Home: NextPage = () => {
 
         <div style={{ height: 16 }} />
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            maxWidth: 500,
+          }}
+        >
+          <ChoiceButton>
+            <CurrentChoice choice={createChoice()} />
+          </ChoiceButton>
+
+          <ChoiceButton style={{ width: 200 }}>
+            <CurrentChoice choice={createChoice()} />
+          </ChoiceButton>
+
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
               <h3>{key}</h3>

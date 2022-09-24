@@ -22,7 +22,7 @@ function createChoices(count: number, levels: number): ChoiceType[] {
       id: faker.random.alphaNumeric(10),
       img: getImage(),
       color: faker.color.hsl(),
-      name: faker.lorem.word(),
+      name: faker.lorem.sentence(),
       children: levels ? createChoices(7, levels - 1) : [],
     };
   }

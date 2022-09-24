@@ -63,6 +63,11 @@
 }
 .menuItem .menuItemName {
   flex-grow: 1;
+
+  /* truncate with ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mobileOverlay {

@@ -19,5 +19,6 @@ body {
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 400;
   font-size: 15px;
+  -webkit-font-smoothing: antialiased;
   background: #f3f4f6;
 }

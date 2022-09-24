@@ -11,7 +11,8 @@ faker.seed(1);
 
 let i = 0;
 const getImage = () => {
-  const img = `https://picsum.photos/id/${i + 10}/80`;
+  // `% 101` to wrap since big ids don't have images, and want a number that's not so predictable
+  const img = `https://picsum.photos/id/${(i + 10) % 101}/80`;
   i++;
   return img;
 };

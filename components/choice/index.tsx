@@ -231,50 +231,44 @@ export function Choice({ choices, state }: ChoiceProps) {
           "Choose something"
         )}
       </div>
-      {isOpen && (
-        <>
-          {renderLayer(
-            <div
-              {...layerProps}
-              className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
-            >
-              <div
-                className={s.mobileExpanded}
-                onClick={toggleMobileExpanded}
+      {isOpen &&
+        renderLayer(
+          <div
+            {...layerProps}
+            className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
+          >
+            <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
+            <div className={s.searchWrapper}>
+              <input
+                ref={searchInputRef}
+                className={s.search}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleInputEsc}
               />
-              <div className={s.searchWrapper}>
-                <input
-                  ref={searchInputRef}
-                  className={s.search}
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  onKeyDown={handleInputEsc}
-                />
-              </div>
-              {filteredChoices.map((choice) =>
-                choice.children ? (
-                  <InnerChoiceWithChildren
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
-                    onChooseId={select}
-                  />
-                ) : (
-                  <InnerChoice
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
-                    onChooseId={select}
-                  />
-                )
-              )}
-              {choices.length > 0 && filteredChoices.length === 0 && (
-                <span>Nothing found 👀</span>
-              )}
             </div>
-          )}
-        </>
-      )}
+            {filteredChoices.map((choice) =>
+              choice.children ? (
+                <InnerChoiceWithChildren
+                  key={choice.id}
+                  choice={choice}
+                  chosenId={chosenId}
+                  onChooseId={select}
+                />
+              ) : (
+                <InnerChoice
+                  key={choice.id}
+                  choice={choice}
+                  chosenId={chosenId}
+                  onChooseId={select}
+                />
+              )
+            )}
+            {choices.length > 0 && filteredChoices.length === 0 && (
+              <span>Nothing found 👀</span>
+            )}
+          </div>
+        )}
     </>
   );
 }

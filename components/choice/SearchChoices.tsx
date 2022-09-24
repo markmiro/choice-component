@@ -63,14 +63,24 @@ export function SearchChoices({
   return (
     <>
       <div className={s.searchWrapper}>
-        <input
-          ref={searchInputRef}
-          placeholder="Search"
-          className={s.search}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={handleInputEsc}
-        />
+        <div className={s.inputGroup}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className={s.inputGroupIcon}
+            src="/icons/search.svg"
+            width={19}
+            height={19}
+            alt=""
+          />
+          <input
+            ref={searchInputRef}
+            placeholder="Search"
+            className={s.search}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleInputEsc}
+          />
+        </div>
       </div>
       {search && (
         <div className={s.searchScroll}>

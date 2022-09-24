@@ -1,3 +1,15 @@
+.inputGroup {
+  position: relative;
+}
+.inputGroup > input {
+  padding-left: calc(36px + 12px);
+}
+.inputGroupIcon {
+  margin-left: 14px;
+  position: absolute;
+  height: 100%;
+}
+
 .searchWrapper {
   padding: 6px 12px 8px;
 }

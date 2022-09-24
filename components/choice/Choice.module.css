@@ -43,6 +43,7 @@
 }
 
 .menuMobile {
+  box-shadow: var(--shadow-4xl);
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   position: fixed;

@@ -3,7 +3,7 @@ import "@markmiro/css-base";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Choice, ChoiceType } from "../components/choice";
 import styles from "../styles/Home.module.css";
 
@@ -30,12 +30,28 @@ function createChoices(count: number, levels: number): ChoiceType[] {
   return arr;
 }
 
-const choices = createChoices(10, 3);
+const choiceVariations = {
+  None: [] as ChoiceType[],
+  One: createChoices(1, 0),
+  Basic: createChoices(3, 0),
+  Medium: createChoices(3, 1),
+  Advanced: createChoices(10, 3),
+};
+type KeyType = keyof typeof choiceVariations;
 
 const Home: NextPage = () => {
   const [showChoice, setShowChoice] = useState(true);
-  const choiceState = useState<string>("");
   const toggleShowChoice = () => setShowChoice((s) => !s);
+
+  let choiceVariationsState: Record<
+    string,
+    [string, Dispatch<SetStateAction<string>>]
+  > = {};
+  Object.keys(choiceVariations).forEach((key) => {
+    // I know it's "bad", but this will execute in the same order each time
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    choiceVariationsState[key] = useState<string>("");
+  });
 
   return (
     <div>
@@ -57,7 +73,7 @@ const Home: NextPage = () => {
 
         <br />
 
-        <button
+        {/* <button
           onClick={toggleShowChoice}
           style={{
             top: 0,
@@ -66,9 +82,23 @@ const Home: NextPage = () => {
           }}
         >
           Toggle show choice
-        </button>
+        </button> */}
 
-        {showChoice && <Choice choices={choices} state={choiceState} />}
+        {/* {showChoice && <Choice choices={choices} state={choiceState} />} */}
+
+        <div style={{ height: 16 }} />
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {Object.keys(choiceVariations).map((key) => (
+            <div key={key}>
+              <h3>{key}</h3>
+              <Choice
+                choices={choiceVariations[key as KeyType]}
+                state={choiceVariationsState[key]}
+              />
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );

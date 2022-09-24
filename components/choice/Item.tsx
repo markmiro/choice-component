@@ -16,7 +16,7 @@ function Img({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
-      alt="none"
+      alt=""
       loading="lazy"
       className={s.img}
       style={{

@@ -110,7 +110,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
 
   // actions
   const open = () => setIsOpen(true);
-  const close = useCallback(() => setIsOpen(false), []);
+  const close = () => setIsOpen(false);
   const select = (id: ChoiceType["id"]) => {
     const children = choiceById(id).children;
     if (children && children.length > 0) {
@@ -146,7 +146,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
             />
             {!search &&
               choices.map((choice) =>
-                choice.children ? (
+                choice.children && choice.children.length > 0 ? (
                   <MenuItemWithChildren
                     key={choice.id}
                     choice={choice}

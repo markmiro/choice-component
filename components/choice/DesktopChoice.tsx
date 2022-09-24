@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useHover, useLayer } from "react-laag";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./MenuItem";

@@ -22,9 +22,9 @@ const getImage = () => {
 function createChoice() {
   return {
     id: faker.random.alphaNumeric(10),
-    img: getImage(),
-    color: faker.color.hsl(),
-    name: faker.lorem.sentence(),
+    img: faker.image.avatar(),
+    // name: faker.lorem.sentence(),
+    name: faker.name.fullName(),
     children: [],
   };
 }

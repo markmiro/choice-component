@@ -3,20 +3,12 @@ import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
 
-function Img({
-  color,
-  src,
-  sideLength,
-}: {
-  sideLength: number;
-  color: number[];
-  src: string;
-}) {
+function Img({ src, sideLength }: { sideLength: number; src: string }) {
   const id = useId();
   return (
     <div
       style={{
-        backgroundColor: `hsl(${color[0]}deg, 100%, 80%)`,
+        backgroundColor: "#f3f4f6",
         borderRadius: 4,
         overflow: "hidden",
         flexShrink: 0,
@@ -50,7 +42,7 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
     <>
       {choice ? (
         <div className={s.currentChoice}>
-          <Img sideLength={24} src={choice.img} color={choice.color} />
+          <Img sideLength={24} src={choice.img} />
           <div className={s.currentChoiceText}>{choice.name}</div>
         </div>
       ) : (
@@ -80,7 +72,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
         onClick={() => onChooseId(choice.id)}
         {...rest}
       >
-        <Img sideLength={40} src={choice.img} color={choice.color} />
+        <Img sideLength={40} src={choice.img} />
         <div className={s.menuItemName}>{choice.name}</div>
         {choice.children && choice.children.length > 0 && (
           // eslint-disable-next-line @next/next/no-img-element

@@ -1,4 +1,4 @@
-.chosenBox {
+.choiceButton {
   position: relative;
   display: inline-block;
   background: yellow;
@@ -25,7 +25,7 @@
   background: black;
 }
 
-.choices {
+.menu {
   border: 1px solid;
   box-shadow: 0 5px 30px black;
   background: yellow;
@@ -36,35 +36,35 @@
   overflow: scroll;
 }
 
-.choice {
+.menuItem {
   padding: 10px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid blue;
   gap: 10px;
 }
-.choice img {
+.menuItem img {
   flex-shrink: 0;
 }
-.choice:hover {
+.menuItem:hover {
   background: magenta;
 }
-.choice.active {
+.menuItem.active {
   background: green;
 }
-.choice .choiceName {
+.menuItem .menuItemName {
   flex-grow: 1;
 }
 
 @media (width <= 400px) {
-  .choices {
+  .menu {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     max-height: 50vh;
   }
-  .choices.choicesExpanded {
+  .menu.menuExpanded {
     height: 100%;
     max-height: 100vh;
   }
@@ -74,7 +74,7 @@
   .mobileExpanded {
     display: none;
   }
-  .choices {
+  .menu {
     width: 315px;
   }
 }

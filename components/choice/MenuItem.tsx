@@ -43,19 +43,19 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
   );
 }
 
-export type InnerChoicePropsType = {
+type MenuItemPropsType = {
   choice: ChoiceType;
   chosenId: string;
   onChooseId: (id: string) => void;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-export const InnerChoice = forwardRef<HTMLDivElement, InnerChoicePropsType>(
-  function InnerChoice({ choice, onChooseId, chosenId, ...rest }, ref) {
+export const MenuItem = forwardRef<HTMLDivElement, MenuItemPropsType>(
+  function MenuItem({ choice, onChooseId, chosenId, ...rest }, ref) {
     return (
       <div
         ref={ref}
         className={c([
-          s.choice,
+          s.menuItem,
           {
             [s.active]: choice.id === chosenId,
           },
@@ -64,7 +64,7 @@ export const InnerChoice = forwardRef<HTMLDivElement, InnerChoicePropsType>(
         {...rest}
       >
         <Img sideLength={40} src={choice.img} color={choice.color} />
-        <div className={s.choiceName}>{choice.name}</div>
+        <div className={s.menuItemName}>{choice.name}</div>
         {choice.children && choice.children.length > 0 && <>→</>}
       </div>
     );

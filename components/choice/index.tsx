@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useHover, useLayer } from "react-laag";
 import s from "./Choice.module.css";
-import { CurrentChoice, InnerChoice } from "./InnerChoice";
+import { CurrentChoice, MenuItem } from "./MenuItem";
 import { ChoiceProps, ChoiceType } from "./types";
 
 function useOnWindowEscape(action: () => void) {
@@ -25,7 +25,7 @@ function useOnWindowEscape(action: () => void) {
   }, [action]);
 }
 
-function InnerChoiceWithChildren({
+function MenuItemWithChildren({
   choice,
   onChooseId,
   chosenId,
@@ -52,7 +52,7 @@ function InnerChoiceWithChildren({
 
   return (
     <>
-      <InnerChoice
+      <MenuItem
         key={choice.id}
         choice={choice}
         chosenId={chosenId}
@@ -62,9 +62,9 @@ function InnerChoiceWithChildren({
       />
       {isOpen &&
         renderLayer(
-          <div {...layerProps} {...hoverProps} className={s.choices}>
+          <div {...layerProps} {...hoverProps} className={s.menu}>
             {choice.children && choice.children.length > 0 && (
-              <InnerChoices
+              <MenuItems
                 choices={choice.children}
                 onChooseId={onChooseId}
                 chosenId={chosenId}
@@ -76,7 +76,7 @@ function InnerChoiceWithChildren({
   );
 }
 
-function InnerChoices({
+function MenuItems({
   choices,
   onChooseId,
   chosenId,
@@ -89,14 +89,14 @@ function InnerChoices({
     <>
       {choices.map((choice) =>
         choice.children && choice.children.length > 0 ? (
-          <InnerChoiceWithChildren
+          <MenuItemWithChildren
             key={choice.id}
             choice={choice}
             chosenId={chosenId}
             onChooseId={onChooseId}
           />
         ) : (
-          <InnerChoice
+          <MenuItem
             key={choice.id}
             choice={choice}
             chosenId={chosenId}
@@ -171,14 +171,14 @@ export function Choice({ choices, state }: ChoiceProps) {
 
   return (
     <>
-      <div className={s.chosenBox} {...triggerProps} onClick={open}>
+      <button className={s.choiceButton} {...triggerProps} onClick={open}>
         <CurrentChoice choice={currentChoice} />
-      </div>
+      </button>
       {isOpen &&
         renderLayer(
           <div
             {...layerProps}
-            className={`${s.choices} ${mobileExpanded && s.choicesExpanded}`}
+            className={`${s.menu} ${mobileExpanded && s.menuExpanded}`}
           >
             <div className={s.mobileExpanded} onClick={toggleMobileExpanded} />
             <div className={s.searchWrapper}>
@@ -192,14 +192,14 @@ export function Choice({ choices, state }: ChoiceProps) {
             </div>
             {filteredChoices.map((choice) =>
               choice.children ? (
-                <InnerChoiceWithChildren
+                <MenuItemWithChildren
                   key={choice.id}
                   choice={choice}
                   chosenId={chosenId}
                   onChooseId={select}
                 />
               ) : (
-                <InnerChoice
+                <MenuItem
                   key={choice.id}
                   choice={choice}
                   chosenId={chosenId}

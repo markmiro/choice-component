@@ -6,6 +6,7 @@ import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useCurrentChoice } from "./useCurrentChoice";
 import { useOnWindowEscape } from "./useOnWindowEscape";
+import { motion, AnimatePresence } from "framer-motion";
 
 console.log("loaded DesktopChoice!");
 
@@ -44,18 +45,27 @@ function MenuItemWithChildren({
         {...hoverProps}
         {...triggerProps}
       />
-      {isOpen &&
-        choice.children &&
-        choice.children.length > 0 &&
-        renderLayer(
-          <div {...layerProps} {...hoverProps} className={s.menu}>
-            <MenuItems
-              choices={choice.children}
-              onChooseId={onChooseId}
-              chosenId={chosenId}
-            />
-          </div>
-        )}
+      {renderLayer(
+        <AnimatePresence>
+          {isOpen && choice.children && choice.children.length > 0 && (
+            <motion.div
+              {...layerProps}
+              {...hoverProps}
+              className={s.menu}
+              transition={{ duration: 0.1 }}
+              initial={{ opacity: 0.2, translateY: 15 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            >
+              <MenuItems
+                choices={choice.children}
+                onChooseId={onChooseId}
+                chosenId={chosenId}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </>
   );
 }

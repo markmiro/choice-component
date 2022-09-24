@@ -143,7 +143,11 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
 
   return (
     <>
-      <ChoiceButton {...triggerProps} onClick={open}>
+      <ChoiceButton
+        {...triggerProps}
+        onClick={open}
+        disabled={!choices || choices.length === 0}
+      >
         <CurrentChoice choice={choiceById(chosenId)} />
       </ChoiceButton>
       {isOpen &&

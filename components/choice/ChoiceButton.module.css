@@ -18,6 +18,9 @@
 .button:focus {
   outline: 2px solid var(--purple);
 }
+.button:disabled {
+  opacity: 0.5;
+}
 
 .content {
   flex-grow: 1;

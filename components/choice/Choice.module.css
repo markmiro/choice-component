@@ -41,6 +41,8 @@
   flex-direction: column;
   max-height: 100vh;
   overflow: scroll;
+  /* position relative required by react-laag: https://github.com/everweij/react-laag#relative-positioning */
+  position: relative;
 }
 
 .menuItem {

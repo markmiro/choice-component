@@ -9,6 +9,10 @@
   --purple: #5754f7;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 400;

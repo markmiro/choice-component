@@ -28,7 +28,7 @@
 }
 
 .icon {
-  padding-right: 5px;
+  margin-right: 5px;
   flex-shrink: 0;
   /* tweak position */
   transform: translateY(1px);

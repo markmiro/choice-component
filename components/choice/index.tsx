@@ -61,15 +61,15 @@ function MenuItemWithChildren({
         {...triggerProps}
       />
       {isOpen &&
+        choice.children &&
+        choice.children.length > 0 &&
         renderLayer(
           <div {...layerProps} {...hoverProps} className={s.menu}>
-            {choice.children && choice.children.length > 0 && (
-              <MenuItems
-                choices={choice.children}
-                onChooseId={onChooseId}
-                chosenId={chosenId}
-              />
-            )}
+            <MenuItems
+              choices={choice.children}
+              onChooseId={onChooseId}
+              chosenId={chosenId}
+            />
           </div>
         )}
     </>

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
-import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useChoiceById } from "./useChoiceById";
 import { useOnWindowEscape } from "./useOnWindowEscape";
@@ -98,16 +97,6 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                 >
                   <div className={s.mobileHandleInner} />
                 </button>
-                {!isDrilling && choiceById.count > 5 && (
-                  <SearchChoices
-                    value={search}
-                    onChange={setSearch}
-                    onChooseId={select}
-                    choices={choices}
-                    itemComponent={MenuItem}
-                    itemWithChildrenComponent={MenuItem}
-                  />
-                )}
                 {isDrilling && (
                   <div className={s.mobileBackWrapper}>
                     <button className={s.mobileBackButton} onClick={back}>

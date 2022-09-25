@@ -130,11 +130,12 @@ const Home: NextPage = () => {
             <div key={key}>
               <h3>{key}</h3>
               <div>
+                <p>Empty</p>
                 <Choice
                   choices={choiceVariations[key as KeyType]}
                   state={choiceVariationsState[key]}
                 />
-                <br />
+                <p>Pre-selected</p>
                 <Choice
                   choices={choiceVariations[key as KeyType]}
                   state={choiceVariationsState2[key]}

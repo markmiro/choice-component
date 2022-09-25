@@ -10,7 +10,7 @@ import { useDebounce } from "usehooks-ts";
 import s from "./SearchChoices.module.css";
 import { ChoiceType } from "./types";
 
-function searchChoices(choices: ChoiceType[], search: string) {
+export function searchChoices(choices: ChoiceType[], search: string) {
   let results: ChoiceType[] = [];
   for (let i = 0; i < choices.length; i++) {
     const choice = choices[i];
@@ -24,6 +24,121 @@ function searchChoices(choices: ChoiceType[], search: string) {
     }
   }
   return results;
+}
+
+export function SearchInput(props: {
+  autoFocus?: boolean;
+  value: string;
+  onChange: Dispatch<SetStateAction<string>>;
+  onFocus?: () => void;
+  onBlur?: () => void;
+}) {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const cancelSearch = () => {
+    props.onChange("");
+    searchInputRef.current?.blur();
+  };
+
+  useEffect(() => {
+    if (props.autoFocus) {
+      searchInputRef?.current?.focus();
+    }
+  }, [searchInputRef, props.autoFocus]);
+
+  const handleInputEsc: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Escape" && props.value) {
+      props.onChange("");
+      e.stopPropagation();
+    }
+  };
+
+  return (
+    <div className={s.searchWrapper}>
+      <div className={s.inputGroup}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className={s.inputGroupIcon}
+          src="/icons/search.svg"
+          width={19}
+          height={19}
+          alt=""
+        />
+        <input
+          type="search"
+          ref={searchInputRef}
+          placeholder="Search"
+          className={s.search}
+          value={props.value}
+          onChange={(e) => props.onChange(e.target.value)}
+          onKeyDown={handleInputEsc}
+          onFocus={() => props.onFocus?.()}
+          onBlur={() => props.onBlur?.()}
+        />
+        {props.value && (
+          <button
+            className={s.inputGroupCloseButton}
+            onClick={cancelSearch}
+            onTouchStart={cancelSearch}
+          >
+            <div className={s.inputGroupCloseButtonIcon}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icons/close.svg" alt="close" />
+            </div>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function SearchResults({
+  choices,
+  onChooseId,
+  search,
+  itemComponent,
+  itemWithChildrenComponent,
+}: {
+  choices: ChoiceType[];
+  onChooseId: (id: string) => void;
+  search: string;
+  itemComponent: any;
+  itemWithChildrenComponent: any;
+}) {
+  const searchScrollRef = useRef<HTMLDivElement>(null);
+  const debouncedSearch = useDebounce(search, 300);
+  const filteredChoices = useMemo(() => {
+    console.log("search!");
+    return searchChoices(choices, debouncedSearch);
+  }, [choices, debouncedSearch]);
+
+  const MenuItem = itemComponent;
+  const MenuItemWithChildren = itemWithChildrenComponent;
+
+  useEffect(() => {
+    if (searchScrollRef.current) searchScrollRef.current.scrollTo({ top: 0 });
+  }, [search]);
+
+  if (!debouncedSearch) return null;
+
+  return (
+    <div ref={searchScrollRef} className={s.searchScroll} tabIndex={0}>
+      {choices.length > 0 &&
+        filteredChoices.length === 0 &&
+        debouncedSearch && <div style={{ padding: 12 }}>Nothing found 👀</div>}
+      {filteredChoices.map((choice) =>
+        choice.children && choice.children.length > 0 ? (
+          <MenuItemWithChildren
+            key={choice.id}
+            choice={choice}
+            onChooseId={onChooseId}
+          />
+        ) : (
+          <MenuItem key={choice.id} choice={choice} onChooseId={onChooseId} />
+        )
+      )}
+    </div>
+  );
 }
 
 export function SearchChoices({
@@ -48,100 +163,24 @@ export function SearchChoices({
   itemWithChildrenComponent: any;
 }) {
   const [search, setSearch] = [value, onChange];
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchScrollRef = useRef<HTMLDivElement>(null);
-  const handleInputEsc: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Escape" && search) {
-      setSearch("");
-      e.stopPropagation();
-    }
-  };
-
-  const cancelSearch = () => {
-    setSearch("");
-    searchInputRef.current?.blur();
-  };
-
-  useEffect(() => {
-    if (searchScrollRef.current) searchScrollRef.current.scrollTo({ top: 0 });
-  }, [search]);
-
-  useEffect(() => {
-    if (autoFocus) {
-      searchInputRef?.current?.focus();
-    }
-  }, [searchInputRef, autoFocus]);
-
-  const debouncedSearch = useDebounce(search, 300);
-  const filteredChoices = useMemo(() => {
-    console.log("search!");
-    return searchChoices(choices, debouncedSearch);
-  }, [choices, debouncedSearch]);
-
-  const MenuItem = itemComponent;
-  const MenuItemWithChildren = itemWithChildrenComponent;
 
   return (
     <>
-      <div className={s.searchWrapper}>
-        <div className={s.inputGroup}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className={s.inputGroupIcon}
-            src="/icons/search.svg"
-            width={19}
-            height={19}
-            alt=""
-          />
-          <input
-            type="search"
-            ref={searchInputRef}
-            placeholder="Search"
-            className={s.search}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleInputEsc}
-            onFocus={() => onFocus?.()}
-            onBlur={() => onBlur?.()}
-          />
-          {search && (
-            <button
-              className={s.inputGroupCloseButton}
-              onClick={cancelSearch}
-              onTouchStart={cancelSearch}
-            >
-              <div className={s.inputGroupCloseButtonIcon}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/icons/close.svg" alt="close" />
-              </div>
-            </button>
-          )}
-        </div>
-      </div>
-      {debouncedSearch && (
-        <div ref={searchScrollRef} className={s.searchScroll} tabIndex={0}>
-          {choices.length > 0 &&
-            filteredChoices.length === 0 &&
-            debouncedSearch && (
-              <div style={{ padding: 12 }}>Nothing found 👀</div>
-            )}
-          {filteredChoices.map((choice) =>
-            choice.children && choice.children.length > 0 ? (
-              <MenuItemWithChildren
-                key={choice.id}
-                choice={choice}
-                onChooseId={onChooseId}
-              />
-            ) : (
-              <MenuItem
-                key={choice.id}
-                choice={choice}
-                onChooseId={onChooseId}
-              />
-            )
-          )}
-        </div>
-      )}
+      <SearchInput
+        autoFocus={autoFocus}
+        value={search}
+        onChange={setSearch}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+
+      <SearchResults
+        choices={choices}
+        search={search}
+        onChooseId={onChooseId}
+        itemComponent={itemComponent}
+        itemWithChildrenComponent={itemWithChildrenComponent}
+      />
     </>
   );
 }

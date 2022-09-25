@@ -7,7 +7,6 @@ Polish steps:
 
 - highlight all the active menu items along the way
 - ensure memory is released
-- close button for mobile?
 - use arrow keys to navigate
 - display nested element immediately, and scroll into view when opening select? Maybe just on mobile?
 - consider `toLocaleLowerCase` for search?

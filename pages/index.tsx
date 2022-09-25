@@ -51,9 +51,6 @@ const choiceVariations = {
 type KeyType = keyof typeof choiceVariations;
 
 const Home: NextPage = () => {
-  const [showChoice, setShowChoice] = useState(true);
-  const toggleShowChoice = () => setShowChoice((s) => !s);
-
   let choiceVariationsState: Record<
     string,
     [string, Dispatch<SetStateAction<string>>]
@@ -96,25 +93,7 @@ const Home: NextPage = () => {
           Figma File
         </a>
 
-        {/* <Image src="/icons/back.svg" width={18} height={16} alt="" />
-        <Image src="/icons/chevron-down.svg" width={12} height={7} alt="" />
-        <Image src="/icons/popover-select.svg" width={8} height={14} alt="" />
-        <Image src="/icons/search.svg" width={19} height={19} alt="" /> */}
-
         <br />
-
-        {/* <button
-          onClick={toggleShowChoice}
-          style={{
-            top: 0,
-            position: "absolute",
-            zIndex: 9999,
-          }}
-        >
-          Toggle show choice
-        </button> */}
-
-        {/* {showChoice && <Choice choices={choices} state={choiceState} />} */}
 
         <div style={{ height: 16 }} />
 

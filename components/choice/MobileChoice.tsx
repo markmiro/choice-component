@@ -7,6 +7,7 @@ import { useOnWindowEscape } from "./useOnWindowEscape";
 import { Portal } from "react-portal";
 import { ChoiceButton } from "./ChoiceButton";
 import { motion, AnimatePresence } from "framer-motion";
+import { MobileSearchChoices, SearchTrigger } from "./MobileSearchChoices";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -17,8 +18,9 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   const [chosenIdPath, setChosenIdPath] = useState<string[]>([]);
   const [chosenId, setChosenId] = state ?? ["", () => {}];
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
   const choiceById = useChoiceById(choices);
+  const [scrollWindowScrollYMem, setScrollWindowScrollYMem] = useState(0);
+  const [showSearch2, setShowSearch2] = useState(false);
 
   // refs
   const choiceButtonRef = useRef<HTMLButtonElement>(null);
@@ -30,7 +32,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   };
   const close = () => {
     setIsOpen(false);
-    choiceButtonRef.current?.focus();
+    choiceButtonRef.current?.focus({ preventScroll: true });
   };
   const back = () => setChosenIdPath((p) => p.slice(0, -1));
   const toggleMobileExpanded = () => setMobileExpanded((s) => !s);
@@ -40,9 +42,28 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
       setChosenIdPath((p) => [...p, id]);
     } else {
       setChosenId(id);
+      // allow user to see item get selected before closing
       setTimeout(close, 300);
     }
   };
+
+  useEffect(() => {
+    const mainEl = document.getElementById("__main");
+    if (!mainEl) return;
+    if (showSearch2) {
+      setScrollWindowScrollYMem(window.scrollY);
+      mainEl.style.display = "none";
+    } else {
+      mainEl.style.display = "block";
+      window.scrollTo({ top: scrollWindowScrollYMem });
+    }
+    return () => {
+      const mainEl = document.getElementById("__main");
+      if (!mainEl) return;
+      mainEl.style.display = "block";
+      setScrollWindowScrollYMem(0);
+    };
+  }, [showSearch2]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0 });
@@ -66,9 +87,10 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
       >
         <CurrentChoice choice={choiceById.get(chosenId)} />
       </ChoiceButton>
+
       <Portal>
         <AnimatePresence>
-          {isOpen && (
+          {isOpen && !showSearch2 && (
             <>
               <Overlay onClick={close} />
               <motion.div
@@ -97,6 +119,11 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                 >
                   <div className={s.mobileHandleInner} />
                 </button>
+
+                {!isDrilling && choiceById.count > 5 && (
+                  <SearchTrigger onClick={() => setShowSearch2(true)} />
+                )}
+
                 {isDrilling && (
                   <div className={s.mobileBackWrapper}>
                     <button className={s.mobileBackButton} onClick={back}>
@@ -110,20 +137,54 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                     </button>
                   </div>
                 )}
-                {(!search || isDrilling) && (
-                  <div className={s.menuMobileScroll} ref={scrollRef}>
-                    {currentChoices.map((choice) => (
-                      <MenuItem
-                        key={choice.id}
-                        choice={choice}
-                        chosenId={chosenId}
-                        onChooseId={select}
-                      />
-                    ))}
-                  </div>
-                )}
+
+                <div className={s.menuMobileScroll} ref={scrollRef}>
+                  {currentChoices.map((choice) => (
+                    <MenuItem
+                      key={choice.id}
+                      choice={choice}
+                      chosenId={chosenId}
+                      onChooseId={select}
+                    />
+                  ))}
+                </div>
               </motion.div>
             </>
+          )}
+        </AnimatePresence>
+      </Portal>
+
+      <Portal>
+        <AnimatePresence>
+          {showSearch2 && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                // translateY: 200,
+              }}
+              animate={{
+                opacity: 1,
+                // translateY: 0,
+                transition: { duration: 0.2 },
+              }}
+              exit={{
+                opacity: 0,
+                // translateY: 200,
+                transition: { duration: 0.2 },
+              }}
+            >
+              <MobileSearchChoices
+                choices={choices}
+                onChooseId={(id) => {
+                  select(id);
+                  const chosen = choiceById.get(id);
+                  if (chosen.children && chosen.children.length > 0) {
+                    setShowSearch2(false);
+                  }
+                }}
+                onCancel={() => setShowSearch2(false)}
+              />
+            </motion.div>
           )}
         </AnimatePresence>
       </Portal>

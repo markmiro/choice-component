@@ -109,7 +109,6 @@ export function SearchResults({
   itemComponent: any;
   itemWithChildrenComponent: any;
 }) {
-  const searchScrollRef = useRef<HTMLDivElement>(null);
   const debouncedSearch = useDebounce(search, 300);
   const filteredChoices = useMemo(() => {
     console.log("search!");
@@ -119,14 +118,10 @@ export function SearchResults({
   const MenuItem = itemComponent;
   const MenuItemWithChildren = itemWithChildrenComponent;
 
-  useEffect(() => {
-    if (searchScrollRef.current) searchScrollRef.current.scrollTo({ top: 0 });
-  }, [search]);
-
   if (!debouncedSearch) return null;
 
   return (
-    <div ref={searchScrollRef} className={s.searchScroll} tabIndex={0}>
+    <>
       {choices.length > 0 &&
         filteredChoices.length === 0 &&
         debouncedSearch && <div style={{ padding: 12 }}>Nothing found 👀</div>}
@@ -141,7 +136,7 @@ export function SearchResults({
           <MenuItem key={choice.id} choice={choice} onChooseId={onChooseId} />
         )
       )}
-    </div>
+    </>
   );
 }
 
@@ -167,6 +162,11 @@ export function SearchChoices({
   itemWithChildrenComponent: any;
 }) {
   const [search, setSearch] = [value, onChange];
+  const searchScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (searchScrollRef.current) searchScrollRef.current.scrollTo({ top: 0 });
+  }, [search]);
 
   return (
     <>
@@ -177,14 +177,15 @@ export function SearchChoices({
         onFocus={onFocus}
         onBlur={onBlur}
       />
-
-      <SearchResults
-        choices={choices}
-        search={search}
-        onChooseId={onChooseId}
-        itemComponent={itemComponent}
-        itemWithChildrenComponent={itemWithChildrenComponent}
-      />
+      <div ref={searchScrollRef} className={s.searchScroll} tabIndex={0}>
+        <SearchResults
+          choices={choices}
+          search={search}
+          onChooseId={onChooseId}
+          itemComponent={itemComponent}
+          itemWithChildrenComponent={itemWithChildrenComponent}
+        />
+      </div>
     </>
   );
 }

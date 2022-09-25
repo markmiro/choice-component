@@ -9,6 +9,8 @@
   border: none;
   height: 2px;
   padding: 10px;
+  width: 50%;
+  margin: 0 auto;
 }
 .mobileHandleInner {
   height: 3px;

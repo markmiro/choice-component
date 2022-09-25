@@ -47,9 +47,13 @@ export function SearchInput(props: {
   }, [searchInputRef, props.autoFocus]);
 
   const handleInputEsc: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Escape" && props.value) {
-      props.onChange("");
-      e.stopPropagation();
+    if (e.key === "Escape") {
+      if (props.value) {
+        props.onChange("");
+        e.stopPropagation();
+      } else {
+        searchInputRef?.current?.blur();
+      }
     }
   };
 

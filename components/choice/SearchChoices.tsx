@@ -94,6 +94,7 @@ export function SearchChoices({
             alt=""
           />
           <input
+            type="search"
             ref={searchInputRef}
             placeholder="Search"
             className={s.search}

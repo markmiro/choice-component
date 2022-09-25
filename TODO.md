@@ -1,12 +1,7 @@
 Now:
 
-- return object in getById
 - mobile: calculate the drill-down from the current item? This way we can alway open the menu to the right item
-- mobile: scroll to top on each drill
-- search icon
 - ensure choices works with empty children and with undefined children
-- animate transitions
-- fix lock body scroll
 
 Polish steps:
 

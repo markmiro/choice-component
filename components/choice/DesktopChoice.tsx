@@ -129,7 +129,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
     if (children && children.length > 0) {
     } else {
       setChosenId(id);
-      close();
+      setTimeout(close, 200);
     }
   };
 
@@ -155,40 +155,61 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
       >
         <CurrentChoice choice={choiceById.get(chosenId)} />
       </ChoiceButton>
-      {isOpen &&
-        renderLayer(
-          <div {...layerProps} className={s.menu}>
-            {choiceById.count > 5 && (
-              <SearchChoices
-                value={search}
-                onChange={setSearch}
-                choices={choices}
-                onChooseId={select}
-                autoFocus
-                itemComponent={MenuItem}
-                itemWithChildrenComponent={MenuItemWithChildren}
-              />
-            )}
-            {!search &&
-              choices.map((choice) =>
-                choice.children && choice.children.length > 0 ? (
-                  <MenuItemWithChildren
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
-                    onChooseId={select}
-                  />
-                ) : (
-                  <MenuItem
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
-                    onChooseId={select}
-                  />
-                )
+
+      {renderLayer(
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              {...layerProps}
+              className={s.menu}
+              initial={{
+                opacity: 0,
+                translateY: 10,
+              }}
+              animate={{
+                opacity: 1,
+                translateY: 0,
+                transition: { duration: 0.1 },
+              }}
+              exit={{
+                opacity: 0,
+                translateY: 10,
+                transition: { duration: 0.2 },
+              }}
+            >
+              {choiceById.count > 5 && (
+                <SearchChoices
+                  value={search}
+                  onChange={setSearch}
+                  choices={choices}
+                  onChooseId={select}
+                  autoFocus
+                  itemComponent={MenuItem}
+                  itemWithChildrenComponent={MenuItemWithChildren}
+                />
               )}
-          </div>
-        )}
+              {!search &&
+                choices.map((choice) =>
+                  choice.children && choice.children.length > 0 ? (
+                    <MenuItemWithChildren
+                      key={choice.id}
+                      choice={choice}
+                      chosenId={chosenId}
+                      onChooseId={select}
+                    />
+                  ) : (
+                    <MenuItem
+                      key={choice.id}
+                      choice={choice}
+                      chosenId={chosenId}
+                      onChooseId={select}
+                    />
+                  )
+                )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </>
   );
 }

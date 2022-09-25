@@ -30,9 +30,12 @@
   align-items: center;
   gap: 10px;
 }
-.menuItem:hover,
-.menuItem.active {
+.menuItem:hover {
   background: #f3f4f6;
+}
+.menuItem.active {
+  background: var(--purple);
+  color: white;
 }
 .menuItem .img {
   flex-shrink: 0;

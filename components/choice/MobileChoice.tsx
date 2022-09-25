@@ -7,6 +7,7 @@ import { useChoiceById } from "./useChoiceById";
 import { useOnWindowEscape } from "./useOnWindowEscape";
 import { Portal } from "react-portal";
 import { ChoiceButton } from "./ChoiceButton";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -25,7 +26,9 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // actions
-  const open = () => setIsOpen(true);
+  const open = () => {
+    setIsOpen(true);
+  };
   const close = () => {
     setIsOpen(false);
     choiceButtonRef.current?.focus();
@@ -38,7 +41,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
       setChosenIdPath((p) => [...p, id]);
     } else {
       setChosenId(id);
-      close();
+      setTimeout(close, 300);
     }
   };
 
@@ -64,52 +67,77 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
       >
         <CurrentChoice choice={choiceById.get(chosenId)} />
       </ChoiceButton>
-      {isOpen && (
-        <Portal>
-          <Overlay onClick={close} />
-          <div
-            className={`${s.menuMobile} ${mobileExpanded && s.menuExpanded}`}
-          >
-            <button
-              className={s.mobileHandle}
-              onClick={toggleMobileExpanded}
-              style={{ marginBottom: -4 }}
-            >
-              <div className={s.mobileHandleInner} />
-            </button>
-            {!isDrilling && choiceById.count > 5 && (
-              <SearchChoices
-                value={search}
-                onChange={setSearch}
-                onChooseId={select}
-                choices={choices}
-                itemComponent={MenuItem}
-                itemWithChildrenComponent={MenuItem}
-              />
-            )}
-            {isDrilling && (
-              <div className={s.mobileBackWrapper}>
-                <button className={s.mobileBackButton} onClick={back}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/icons/back.svg" width={18} height={16} alt="" />
+      <Portal>
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <Overlay onClick={close} />
+              <motion.div
+                className={`${s.menuMobile} ${
+                  mobileExpanded && s.menuExpanded
+                }`}
+                initial={{
+                  opacity: 0,
+                  translateY: 200,
+                }}
+                animate={{
+                  opacity: 1,
+                  translateY: 0,
+                  transition: { duration: 0.2 },
+                }}
+                exit={{
+                  opacity: 0,
+                  translateY: 200,
+                  transition: { duration: 0.2 },
+                }}
+              >
+                <button
+                  className={s.mobileHandle}
+                  onClick={toggleMobileExpanded}
+                  style={{ marginBottom: -4 }}
+                >
+                  <div className={s.mobileHandleInner} />
                 </button>
-              </div>
-            )}
-            {(!search || isDrilling) && (
-              <div className={s.menuMobileScroll} ref={scrollRef}>
-                {currentChoices.map((choice) => (
-                  <MenuItem
-                    key={choice.id}
-                    choice={choice}
-                    chosenId={chosenId}
+                {!isDrilling && choiceById.count > 5 && (
+                  <SearchChoices
+                    value={search}
+                    onChange={setSearch}
                     onChooseId={select}
+                    choices={choices}
+                    itemComponent={MenuItem}
+                    itemWithChildrenComponent={MenuItem}
                   />
-                ))}
-              </div>
-            )}
-          </div>
-        </Portal>
-      )}
+                )}
+                {isDrilling && (
+                  <div className={s.mobileBackWrapper}>
+                    <button className={s.mobileBackButton} onClick={back}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/icons/back.svg"
+                        width={18}
+                        height={16}
+                        alt=""
+                      />
+                    </button>
+                  </div>
+                )}
+                {(!search || isDrilling) && (
+                  <div className={s.menuMobileScroll} ref={scrollRef}>
+                    {currentChoices.map((choice) => (
+                      <MenuItem
+                        key={choice.id}
+                        choice={choice}
+                        chosenId={chosenId}
+                        onChooseId={select}
+                      />
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </Portal>
     </>
   );
 }

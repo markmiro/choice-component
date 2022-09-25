@@ -42,11 +42,11 @@ function createChoices(count: number, levels: number): ChoiceType[] {
 
 const singleChoice = createChoice();
 const choiceVariations = {
-  None: [] as ChoiceType[],
-  One: createChoices(1, 0),
-  Basic: createChoices(3, 0),
-  Medium: createChoices(3, 1),
   Advanced: createChoices(10, 2),
+  Medium: createChoices(3, 1),
+  Basic: createChoices(3, 0),
+  One: createChoices(1, 0),
+  None: [] as ChoiceType[],
 };
 type KeyType = keyof typeof choiceVariations;
 

@@ -3,8 +3,10 @@ import {
   KeyboardEventHandler,
   SetStateAction,
   useEffect,
+  useMemo,
   useRef,
 } from "react";
+import { useDebounce } from "usehooks-ts";
 import s from "./SearchChoices.module.css";
 import { ChoiceType } from "./types";
 
@@ -55,7 +57,11 @@ export function SearchChoices({
     }
   }, [searchInputRef, autoFocus]);
 
-  const filteredChoices = searchChoices(choices, search);
+  const debouncedSearch = useDebounce(search, 300);
+  const filteredChoices = useMemo(() => {
+    console.log("search!");
+    return searchChoices(choices, debouncedSearch);
+  }, [choices, debouncedSearch]);
 
   const MenuItem = itemComponent;
   const MenuItemWithChildren = itemWithChildrenComponent;
@@ -82,7 +88,7 @@ export function SearchChoices({
           />
         </div>
       </div>
-      {search && (
+      {debouncedSearch && (
         <div className={s.searchScroll}>
           {filteredChoices.map(
             (choice) =>
@@ -103,9 +109,9 @@ export function SearchChoices({
           )}
         </div>
       )}
-      {choices.length > 0 && filteredChoices.length === 0 && (
-        <div style={{ padding: 12 }}>Nothing found 👀</div>
-      )}
+      {choices.length > 0 &&
+        filteredChoices.length === 0 &&
+        debouncedSearch && <div style={{ padding: 12 }}>Nothing found 👀</div>}
     </>
   );
 }

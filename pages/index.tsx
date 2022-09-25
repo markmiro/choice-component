@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker";
 import "normalize.css";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Choice, ChoiceType } from "../components/choice";
 import styles from "../styles/Home.module.css";
@@ -23,6 +22,7 @@ function createChoice() {
   return {
     id: faker.random.alphaNumeric(10),
     img: faker.image.avatar(),
+    // img: getImage(),
     // name: faker.lorem.sentence(),
     name: faker.name.fullName(),
     children: [],

@@ -17,6 +17,7 @@ specifiers:
   react-laag: 2.0.4
   react-portal: 4.2.2
   typescript: 4.8.3
+  usehooks-ts: 2.7.1
 
 dependencies:
   '@faker-js/faker': 7.5.0
@@ -29,6 +30,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-laag: 2.0.4_biqbaboplfbrettd7655fr4n2y
   react-portal: 4.2.2_biqbaboplfbrettd7655fr4n2y
+  usehooks-ts: 2.7.1_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@types/node': 18.7.18
@@ -2009,6 +2011,17 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /usehooks-ts/2.7.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-7WgP5ELpmJ/5rZ4P+YnfhLXdiGf1Xpy4iLnjcifBGmwBWXBBa9FZRRHNOiJJw1NKIAU9LOaKaps4G3KXLPhZ6w==}
+    engines: {node: '>=16.15.0', npm: '>=8'}
+    peerDependencies:
+      react: ^16.8.0  || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /which-boxed-primitive/1.0.2:

@@ -31,7 +31,7 @@
 }
 
 .searchScroll {
-  overflow: scroll;
+  overflow-y: auto;
   overscroll-behavior: contain;
   display: flex;
   flex-direction: column;

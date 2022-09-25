@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   max-height: 100vh;
-  overflow: scroll;
+  overflow-y: auto;
   overscroll-behavior: contain;
   /* position relative required by react-laag: https://github.com/everweij/react-laag#relative-positioning */
   position: relative;
@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 .menuMobileScroll {
-  overflow: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }

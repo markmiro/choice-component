@@ -126,14 +126,6 @@ const Home: NextPage = () => {
             maxWidth: 500,
           }}
         >
-          <ChoiceButton>
-            <CurrentChoice choice={singleChoice} />
-          </ChoiceButton>
-
-          <ChoiceButton style={{ width: 200 }}>
-            <CurrentChoice choice={singleChoice} />
-          </ChoiceButton>
-
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
               <h3>{key}</h3>
@@ -150,6 +142,16 @@ const Home: NextPage = () => {
               </div>
             </div>
           ))}
+
+          <h3>non-interactive (ChoiceButton without menu)</h3>
+
+          <ChoiceButton>
+            <CurrentChoice choice={singleChoice} />
+          </ChoiceButton>
+
+          <ChoiceButton style={{ width: 100 }}>
+            <CurrentChoice choice={singleChoice} />
+          </ChoiceButton>
         </div>
         <div style={{ height: "50vh" }} />
       </main>

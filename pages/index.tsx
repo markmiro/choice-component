@@ -111,7 +111,7 @@ const Home: NextPage = () => {
             <div key={key}>
               <h3>{key}</h3>
               <div>
-                <p>Empty</p>
+                <p>Unselected</p>
                 <Choice
                   choices={choiceVariations[key as KeyType]}
                   state={choiceVariationsState[key]}

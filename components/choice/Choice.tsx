@@ -11,7 +11,7 @@ export function Choice(props: ChoiceProps) {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    if (document.body.clientWidth > 400) {
+    if (document.body.clientWidth > 800) {
       setIsDesktop(true);
     }
   }, []);

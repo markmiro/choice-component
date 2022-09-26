@@ -29,12 +29,13 @@ function createChoice() {
   };
 }
 
-function createChoices(count: number, levels: number): ChoiceType[] {
-  const arr = new Array(count);
+function createChoices(counts: number[]): ChoiceType[] {
+  if (!counts || counts.length === 0) return [];
+  const arr = new Array(counts[0]);
   for (let i = 0; i < arr.length; i++) {
     arr[i] = {
       ...createChoice(),
-      children: levels ? createChoices(7, levels - 1) : [],
+      children: createChoices(counts.slice(1)),
     };
   }
   return arr;
@@ -42,10 +43,11 @@ function createChoices(count: number, levels: number): ChoiceType[] {
 
 const singleChoice = createChoice();
 const choiceVariations = {
-  Advanced: createChoices(10, 2),
-  Medium: createChoices(3, 1),
-  Basic: createChoices(3, 0),
-  One: createChoices(1, 0),
+  SuperNested: createChoices([10, 3, 3]),
+  Nested: createChoices([3, 7]),
+  Many: createChoices([15]),
+  Small: createChoices([3]),
+  One: createChoices([1]),
   None: [] as ChoiceType[],
 };
 type KeyType = keyof typeof choiceVariations;

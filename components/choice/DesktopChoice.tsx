@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { createContext, PropsWithChildren, useRef, useState } from "react";
 import { mergeRefs, useHover, useLayer } from "react-laag";
 import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
@@ -8,18 +8,12 @@ import { useOnWindowEscape } from "./useOnWindowEscape";
 import { motion, AnimatePresence } from "framer-motion";
 import { useChoiceById } from "./useChoiceById";
 import { ChoiceButton } from "./ChoiceButton";
+import { ChoiceContextProvider, useChoiceContext } from "./ChoiceContext";
 
 console.log("loaded DesktopChoice!");
 
-function MenuItemWithChildren({
-  choice,
-  onChooseId,
-  chosenId,
-}: {
-  choice: ChoiceType;
-  chosenId: string;
-  onChooseId: (id: string) => void;
-}) {
+function MenuItemWithChildren({ choice }: { choice: ChoiceType }) {
+  const { chosenId, setChosenId } = useChoiceContext();
   const [isOpen, hoverProps, close] = useHover({
     delayEnter: 0,
     delayLeave: 0,
@@ -41,7 +35,7 @@ function MenuItemWithChildren({
       <MenuItem
         choice={choice}
         chosenId={chosenId}
-        onChooseId={onChooseId}
+        onChooseId={setChosenId}
         {...hoverProps}
         {...triggerProps}
       />
@@ -65,11 +59,7 @@ function MenuItemWithChildren({
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
             >
               <div className={s.menu} style={{ transform: "translateY(-8px" }}>
-                <MenuItems
-                  choices={choice.children}
-                  onChooseId={onChooseId}
-                  chosenId={chosenId}
-                />
+                <MenuItems choices={choice.children} />
               </div>
             </motion.div>
           )}
@@ -79,32 +69,15 @@ function MenuItemWithChildren({
   );
 }
 
-function MenuItems({
-  choices,
-  onChooseId,
-  chosenId,
-}: {
-  choices: ChoiceType[];
-  chosenId: string;
-  onChooseId: (id: string) => void;
-}) {
+function MenuItems({ choices }: { choices: ChoiceType[] }) {
+  const { setChosenId } = useChoiceContext();
   return (
     <>
       {choices.map((choice) =>
         choice.children && choice.children.length > 0 ? (
-          <MenuItemWithChildren
-            key={choice.id}
-            choice={choice}
-            chosenId={chosenId}
-            onChooseId={onChooseId}
-          />
+          <MenuItemWithChildren key={choice.id} choice={choice} />
         ) : (
-          <MenuItem
-            key={choice.id}
-            choice={choice}
-            chosenId={chosenId}
-            onChooseId={onChooseId}
-          />
+          <MenuItem key={choice.id} choice={choice} onChooseId={setChosenId} />
         )
       )}
     </>
@@ -177,35 +150,32 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
                 transition: { duration: 0.2 },
               }}
             >
-              {choiceById.count > 5 && (
-                <SearchChoices
-                  value={search}
-                  onChange={setSearch}
-                  choices={choices}
-                  onChooseId={select}
-                  autoFocus
-                  itemComponent={MenuItem}
-                  itemWithChildrenComponent={MenuItemWithChildren}
-                />
-              )}
-              {!search &&
-                choices.map((choice) =>
-                  choice.children && choice.children.length > 0 ? (
-                    <MenuItemWithChildren
-                      key={choice.id}
-                      choice={choice}
-                      chosenId={chosenId}
-                      onChooseId={select}
-                    />
-                  ) : (
-                    <MenuItem
-                      key={choice.id}
-                      choice={choice}
-                      chosenId={chosenId}
-                      onChooseId={select}
-                    />
-                  )
+              <ChoiceContextProvider chosenId={chosenId} setChosenId={select}>
+                {choiceById.count > 5 && (
+                  <SearchChoices
+                    value={search}
+                    onChange={setSearch}
+                    choices={choices}
+                    onChooseId={select}
+                    autoFocus
+                    itemComponent={MenuItem}
+                    itemWithChildrenComponent={MenuItemWithChildren}
+                  />
                 )}
+                {!search &&
+                  choices.map((choice) =>
+                    choice.children && choice.children.length > 0 ? (
+                      <MenuItemWithChildren key={choice.id} choice={choice} />
+                    ) : (
+                      <MenuItem
+                        key={choice.id}
+                        choice={choice}
+                        chosenId={chosenId}
+                        onChooseId={select}
+                      />
+                    )
+                  )}
+              </ChoiceContextProvider>
             </motion.div>
           )}
         </AnimatePresence>

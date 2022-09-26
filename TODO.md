@@ -1,13 +1,16 @@
 Now:
 
-- make the Choice component lighter by only including the main button and loading the rest dynamically
+- mobile: calculate the drill-down from the current item? This way we can alway open the menu to the right item
+- make arrow keys work
 - desktop: menu only show above or below button (and calculate height to prevent intersection)
 - desktop: don't close menu items on mouse out, but only when sibling changes
-- mobile: calculate the drill-down from the current item? This way we can alway open the menu to the right item
 - ensure choices works with empty children and with undefined children
+- make the Choice component lighter by only including the main button and loading the rest dynamically
+- use `matchMedia` instead of `document.body.clientWidth`
 
 Polish steps:
 
+- maybe make it headless?
 - highlight all the active menu items along the way
 - ensure memory is released
 - use arrow keys to navigate

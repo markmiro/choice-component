@@ -54,7 +54,7 @@ export function MobileSearchChoices({
         onChange={setSearch}
         onBlur={() => setTimeout(() => onCancel(), 200)}
       />
-      {search ? (
+      {search && search.length > 1 ? (
         <SearchResults
           choices={choices}
           search={search}

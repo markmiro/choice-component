@@ -150,7 +150,11 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
                 transition: { duration: 0.2 },
               }}
             >
-              <ChoiceContextProvider chosenId={chosenId} setChosenId={select}>
+              <ChoiceContextProvider
+                chosenId={chosenId}
+                setChosenId={select}
+                choiceById={choiceById}
+              >
                 {choiceById.count > 5 && (
                   <SearchChoices
                     value={search}

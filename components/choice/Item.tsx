@@ -2,6 +2,7 @@ import { DetailedHTMLProps, forwardRef, HTMLAttributes, useId } from "react";
 import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
+import { useChoiceContext } from "./ChoiceContext";
 
 function Img({ src, sideLength }: { sideLength: number; src: string }) {
   const id = useId();
@@ -60,6 +61,7 @@ type MenuItemPropsType = {
 
 export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
   function MenuItem({ choice, onChooseId, chosenId, ...rest }, ref) {
+    const ctx = useChoiceContext();
     return (
       <button
         ref={ref}
@@ -67,10 +69,18 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
           s.menuItem,
           {
             [s.active]: choice.id === chosenId,
+            [s.onPath]: ctx.choiceById
+              .path(ctx.tempChosenId)
+              .includes(choice.id),
           },
         ])}
         onClick={() => onChooseId(choice.id)}
         {...rest}
+        onMouseEnter={(e) => {
+          ctx.setTempChosenId(choice.id);
+          console.log(ctx?.choiceById.path(ctx.tempChosenId));
+          rest.onMouseEnter?.(e);
+        }}
       >
         <Img sideLength={40} src={choice.img} />
         <div className={s.menuItemName}>{choice.name}</div>

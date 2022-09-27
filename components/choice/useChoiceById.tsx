@@ -20,8 +20,6 @@ export function useChoiceById(choices: ChoiceType[]) {
     };
     iterateChoices([], choices);
 
-    debugger;
-
     return {
       get: (id: string) => byId[id],
       path: (id: string) => pathToId[id] || [],

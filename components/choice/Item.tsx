@@ -55,36 +55,30 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
 
 type MenuItemPropsType = {
   choice: ChoiceType;
-  chosenId?: string;
-  onChooseId: (id: string) => void;
+  isActive?: boolean;
+  /** Useful for nested menus */
+  isHover?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
-  function MenuItem({ choice, onChooseId, chosenId, ...rest }, ref) {
-    const ctx = useChoiceContext();
+  function MenuItem({ choice, isActive, isHover, ...rest }, ref) {
+    const hasChildren = choice.children && choice.children.length > 0;
     return (
       <button
         ref={ref}
         className={c([
           s.menuItem,
           {
-            [s.active]: choice.id === chosenId,
-            [s.onPath]: ctx.choiceById
-              .path(ctx.tempChosenId)
-              .includes(choice.id),
+            [s.active]: isActive && !hasChildren,
+            [s.onPath]: isHover,
           },
         ])}
-        onClick={() => onChooseId(choice.id)}
         {...rest}
-        onMouseEnter={(e) => {
-          ctx.setTempChosenId(choice.id);
-          console.log(ctx?.choiceById.path(ctx.tempChosenId));
-          rest.onMouseEnter?.(e);
-        }}
       >
         <Img sideLength={40} src={choice.img} />
         <div className={s.menuItemName}>{choice.name}</div>
-        {choice.children && choice.children.length > 0 && (
+        {isActive && hasChildren && <div className={s.activeDot} />}
+        {hasChildren && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             className={s.menuItemIcon}
@@ -98,3 +92,42 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
     );
   }
 );
+
+type MenuItemWithContextPropsType = {
+  choice: ChoiceType;
+} & DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+
+export const MenuItemWithContext = forwardRef<
+  HTMLButtonElement,
+  MenuItemWithContextPropsType
+>(function MenuItemWithContext({ choice, ...rest }, ref) {
+  const ctx = useChoiceContext();
+  return (
+    <MenuItem
+      ref={ref}
+      choice={choice}
+      isActive={
+        choice.id === ctx.chosenId ||
+        ctx.choiceById.path(ctx.chosenId).includes(choice.id)
+      }
+      isHover={ctx.choiceById.path(ctx.tempChosenId).includes(choice.id)}
+      onClick={() => ctx.setChosenId(choice.id)}
+      onMouseEnter={(e) => {
+        ctx.setTempChosenId(choice.id);
+        // console.log(ctx?.choiceById.path(ctx.tempChosenId));
+        rest.onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        const path = ctx?.choiceById.path(ctx.tempChosenId);
+        if (ctx.tempChosenId === choice.id) {
+          if (path[path.length - 1]) {
+            ctx.setTempChosenId(path[path.length - 1]);
+          } else {
+            ctx.setTempChosenId("");
+          }
+        }
+        rest.onMouseLeave?.(e);
+      }}
+    />
+  );
+});

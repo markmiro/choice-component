@@ -143,8 +143,11 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                     <MenuItem
                       key={choice.id}
                       choice={choice}
-                      chosenId={chosenId}
-                      onChooseId={select}
+                      onClick={() => select(choice.id)}
+                      isActive={
+                        choiceById.path(chosenId).includes(choice.id) ||
+                        chosenId === choice.id
+                      }
                     />
                   ))}
                 </div>

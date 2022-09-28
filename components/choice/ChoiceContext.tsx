@@ -41,6 +41,8 @@ export function ChoiceContextProvider({
   );
 }
 
+export const ChoiceContextConsumer = ChoiceContext.Consumer;
+
 export function useChoiceContext() {
   const choiceContext = useContext(ChoiceContext);
   if (choiceContext === undefined) {

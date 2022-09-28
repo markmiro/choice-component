@@ -64,7 +64,11 @@ export function MobileSearchChoices({
         />
       ) : (
         choices.map((choice) => (
-          <MenuItem key={choice.id} choice={choice} onChooseId={onChooseId} />
+          <MenuItem
+            key={choice.id}
+            choice={choice}
+            onClick={() => onChooseId(choice.id)}
+          />
         ))
       )}
     </div>

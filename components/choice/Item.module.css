@@ -37,6 +37,12 @@
   background: var(--purple);
   color: white;
 }
+.menuItem .activeDot {
+  width: 8px;
+  height: 8px;
+  background: var(--purple);
+  border-radius: 999px;
+}
 .menuItem .img {
   flex-shrink: 0;
 }

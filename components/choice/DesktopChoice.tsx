@@ -98,7 +98,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   const choiceButtonRef = useRef<HTMLButtonElement>(null);
 
   // actions
-  const open = () => setIsOpen(true);
+  const toggle = () => setIsOpen((o) => !o);
   const close = () => {
     setIsOpen(false);
     choiceButtonRef.current?.focus({ preventScroll: true });
@@ -128,7 +128,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
     <>
       <ChoiceButton
         ref={mergeRefs(triggerProps.ref, choiceButtonRef)}
-        onClick={open}
+        onClick={toggle}
         isActive={isOpen}
         disabled={!choices || choices.length === 0}
       >

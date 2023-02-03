@@ -12,11 +12,3 @@
     0px 48px 96px -10px rgba(48, 58, 74, 0.36);
   --blue: #3280ff;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-}

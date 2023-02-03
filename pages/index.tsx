@@ -4,7 +4,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Choice, ChoiceType } from "../components/choice";
-import styles from "../styles/Home.module.css";
 import { ChoiceButton } from "../components/choice/ChoiceButton";
 import { CurrentChoice } from "../components/choice/Item";
 
@@ -89,30 +88,23 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className={styles.main} id="__main">
+      <main className="p-8" id="__main">
         <h1>Choice Component</h1>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 8,
-            maxWidth: 500,
-          }}
-        >
+        <div className="flex flex-col gap-8 max-w-500">
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
-              <h3>{key}</h3>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "1em" }}>
+              <h3 className="font-semibold">{key}</h3>
+              <div className="flex flex-wrap gap-3">
                 <div>
-                  <p>Unselected</p>
+                  <p className="my-2">Unselected</p>
                   <Choice
                     choices={choiceVariations[key as KeyType]}
                     state={choiceVariationsState[key]}
                   />
                 </div>
                 <div>
-                  <p>Pre-selected</p>
+                  <p className="my-2">Pre-selected</p>
                   <Choice
                     choices={choiceVariations[key as KeyType]}
                     state={choiceVariationsState2[key]}
@@ -132,6 +124,8 @@ const Home: NextPage = () => {
             <CurrentChoice choice={singleChoice} />
           </ChoiceButton>
         </div>
+
+        {/* Footer space */}
         <div style={{ height: "50vh" }} />
       </main>
     </div>

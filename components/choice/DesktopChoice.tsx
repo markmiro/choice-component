@@ -8,11 +8,7 @@ import { useOnWindowEscape } from "./useOnWindowEscape";
 import { motion, AnimatePresence } from "framer-motion";
 import { useChoiceById } from "./useChoiceById";
 import { ChoiceButton } from "./ChoiceButton";
-import {
-  ChoiceContextConsumer,
-  ChoiceContextProvider,
-  useChoiceContext,
-} from "./ChoiceContext";
+import { ChoiceContextProvider, useChoiceContext } from "./ChoiceContext";
 
 console.log("loaded DesktopChoice!");
 

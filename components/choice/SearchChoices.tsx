@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import {
   Dispatch,
   KeyboardEventHandler,
@@ -8,7 +8,6 @@ import {
   useRef,
 } from "react";
 import { useDebounce } from "usehooks-ts";
-import s from "./SearchChoices.module.css";
 import { ChoiceType } from "./types";
 
 export function searchChoices(choices: ChoiceType[], search: string) {
@@ -59,14 +58,14 @@ export function SearchInput(props: {
   };
 
   return (
-    <div className={s.searchWrapper}>
-      <div className={s.inputGroup}>
+    <div className="py-2 px-4 flex gap-2 group">
+      <div className="grow relative">
         <MagnifyingGlassIcon className="ml-2 w-5 h-full absolute opacity-30" />
         <input
           type="search"
           ref={searchInputRef}
           placeholder="Search"
-          className={s.search}
+          className="w-full rounded-full px-3 pl-9 py-2 bg-gray-100 placeholder:opacity-30 placeholder:text-black"
           value={props.value}
           onChange={(e) => props.onChange(e.target.value)}
           onKeyDown={handleInputEsc}
@@ -74,6 +73,12 @@ export function SearchInput(props: {
           onBlur={() => props.onBlur?.()}
         />
       </div>
+      <button
+        className="shrink-0 hidden group-focus-within:block"
+        onClick={cancelSearch}
+      >
+        <XMarkIcon className="w-6 h-6" />
+      </button>
     </div>
   );
 }
@@ -159,7 +164,11 @@ export function SearchChoices({
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      <div ref={searchScrollRef} className={s.searchScroll} tabIndex={0}>
+      <div
+        ref={searchScrollRef}
+        className="overflow-y-auto overscroll-contain flex flex-col"
+        tabIndex={0}
+      >
         <SearchResults
           choices={choices}
           search={search}

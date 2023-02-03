@@ -1,5 +1,7 @@
-Now:
 
+Now:
+- mobile: remove fade out when closing menu
+- mobile: show handle when input is focused
 - make arrow keys work
 - mobile: calculate the drill-down from the current item? This way we can alway open the menu to the right item
 - desktop: menu only show above or below button (and calculate height to prevent intersection)

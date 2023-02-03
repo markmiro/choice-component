@@ -4,7 +4,7 @@ import { ChoiceType } from "./types";
 import { useChoiceContext } from "./ChoiceContext";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
-function Img({ src, sideLength }: { sideLength: number; src: string }) {
+function Img({ src, sideSize }: { sideSize: string; src: string }) {
   const id = useId();
   return (
     <div
@@ -25,11 +25,9 @@ function Img({ src, sideLength }: { sideLength: number; src: string }) {
         src={src}
         alt=""
         loading="lazy"
-        className="w-10 h-10 block shrink-0 bg-black"
+        className={`w-${sideSize} h-${sideSize} block shrink-0 bg-black`}
         style={{
           opacity: 0,
-          width: sideLength,
-          height: sideLength,
         }}
       />
     </div>
@@ -41,7 +39,7 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
     <>
       {choice ? (
         <div className="flex items-center gap-2">
-          <Img sideLength={24} src={choice.img} />
+          <Img sideSize="5" src={choice.img} />
           <div className="truncate">{choice.name}</div>
         </div>
       ) : (
@@ -65,7 +63,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
       <button
         ref={ref}
         className={c([
-          "w-full text-left flex px-4 py-3 items-center gap-3 hover:bg-neutral-100 focus:bg-gray-100 focus:outline-none",
+          "w-full text-left flex px-4 py-2 items-center gap-3 hover:bg-neutral-100 focus:bg-gray-100 focus:outline-none",
           {
             ["bg-blue-500 text-white hover:bg-blue-600"]:
               isActive && !hasChildren,
@@ -74,7 +72,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
         ])}
         {...rest}
       >
-        <Img sideLength={40} src={choice.img} />
+        <Img sideSize="8" src={choice.img} />
         <div className="flex-grow">{choice.name}</div>
         {isActive && hasChildren && (
           <div className="rounded-full w-2 h-2 bg-blue-500" />

@@ -81,7 +81,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Glide Choice Component</title>
+        <title>Choice Component</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"
@@ -90,14 +90,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main} id="__main">
-        <h1>Glide Choice Component</h1>
-        <a href="https://www.figma.com/file/gXlpBINSgg129W887h5ygW/Choice-Component?node-id=0%3A1">
-          Figma File
-        </a>
+        <h1>Choice Component</h1>
 
         <br />
-
-        <div style={{ height: 16 }} />
 
         <div
           style={{

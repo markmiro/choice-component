@@ -1,14 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400");
-
 :root {
-  --shadow-md: 0px 0px 0px 1px rgba(48, 58, 74, 0.08),
-    0px 1px 1px rgba(48, 58, 74, 0.06), 0px 1px 3px rgba(48, 58, 74, 0.08);
+  --shadow-md: 0px 0px 0px 2px rgba(48, 58, 74, 0.08);
   --shadow-lg: 0px 0px 0px 1px rgba(48, 58, 74, 0.08),
     0px 2px 4px rgba(48, 58, 74, 0.06), 0px 6px 12px -3px rgba(62, 65, 86, 0.08);
   --shadow-4xl: 0px 0px 0px 1px rgba(62, 65, 86, 0.08),
     0px 32px 64px rgba(48, 58, 74, 0.08),
     0px 48px 96px -10px rgba(48, 58, 74, 0.36);
-  --purple: #5754f7;
+  --blue: #3280ff;
 }
 
 * {
@@ -16,8 +13,7 @@
 }
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 400;
+  font-family: system-ui, sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   background: #f3f4f6;

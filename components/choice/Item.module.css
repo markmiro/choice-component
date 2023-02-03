@@ -34,13 +34,13 @@
   background: #f3f4f6;
 }
 .menuItem.active {
-  background: var(--purple);
+  background: var(--blue);
   color: white;
 }
 .menuItem .activeDot {
   width: 8px;
   height: 8px;
-  background: var(--purple);
+  background: var(--blue);
   border-radius: 999px;
 }
 .menuItem .img {

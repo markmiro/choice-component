@@ -39,7 +39,7 @@
   padding: 6px 12px 8px;
 }
 .search {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   width: 100%;
   font-size: inherit;
   border: none;
@@ -50,7 +50,7 @@
   line-height: 20px;
 }
 .search:focus {
-  outline: 2px solid var(--purple);
+  outline: 2px solid var(--blue);
 }
 .search::placeholder {
   opacity: 0.5;

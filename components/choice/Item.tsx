@@ -63,7 +63,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
       <button
         ref={ref}
         className={c([
-          "w-full text-left flex px-4 py-2 items-center gap-3 hover:bg-neutral-100 focus:bg-gray-100 focus:outline-none",
+          "w-full text-left flex pl-4 pr-2 py-2 items-center gap-2 hover:bg-neutral-100 focus:bg-gray-100 focus:outline-none",
           {
             ["bg-blue-500 text-white hover:bg-blue-600"]:
               isActive && !hasChildren,
@@ -72,12 +72,14 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
         ])}
         {...rest}
       >
-        <Img sideSize="8" src={choice.img} />
+        <Img sideSize="7" src={choice.img} />
         <div className="flex-grow">{choice.name}</div>
         {isActive && hasChildren && (
           <div className="rounded-full w-2 h-2 bg-blue-500" />
         )}
-        {hasChildren && <ChevronRightIcon className="h-5 w-5 opacity-30" />}
+        <ChevronRightIcon
+          className={c("h-5 w-5", hasChildren ? "opacity-30" : "opacity-0")}
+        />
       </button>
     );
   }

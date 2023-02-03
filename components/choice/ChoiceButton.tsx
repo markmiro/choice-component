@@ -6,7 +6,6 @@ import {
   ForwardedRef,
   forwardRef,
 } from "react";
-import s from "./ChoiceButton.module.css";
 
 type ChoiceButtonPropType = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -22,11 +21,14 @@ export const ChoiceButton = forwardRef(function ChoiceButton(
   return (
     <button
       ref={ref}
-      className={classNames([s.button, { [s.buttonActive]: isActive }])}
+      className={classNames([
+        "h-9 px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-start relative flex items-center gap-2 disabled:opacity-50",
+        { "hover:bg-gray-200": isActive },
+      ])}
       {...rest}
     >
-      <div className={s.content}>{children}</div>
-      <ChevronDownIcon className="h-5 w-5" />
+      <div className="grow truncate">{children}</div>
+      <ChevronDownIcon className="h-5 w-5 shrink-0" />
     </button>
   );
 });

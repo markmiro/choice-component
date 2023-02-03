@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --shadow-md: 0px 0px 0px 1px rgba(48, 58, 74, 0.08),
-    0px 1px 1px rgba(48, 58, 74, 0.06), 0px 1px 3px rgba(48, 58, 74, 0.08);
-  --shadow-lg: 0px 0px 0px 1px rgba(48, 58, 74, 0.08),
-    0px 2px 4px rgba(48, 58, 74, 0.06), 0px 6px 12px -3px rgba(62, 65, 86, 0.08);
-  --shadow-4xl: 0px 0px 0px 1px rgba(62, 65, 86, 0.08),
-    0px 32px 64px rgba(48, 58, 74, 0.08),
-    0px 48px 96px -10px rgba(48, 58, 74, 0.36);
-  --blue: #3280ff;
-}
-
 /* https://medium.com/@rion.mrk/how-to-remove-x-icon-from-search-input-field-or-input-type-search-db3c808405fb */
 /* clears the ‘X’ from Internet Explorer */
 input[type=search]::-ms-clear { display: none; width : 0; height: 0; }

@@ -58,7 +58,7 @@ export function SearchInput(props: {
   };
 
   return (
-    <div className="py-2 px-4 flex gap-2 group">
+    <div className="py-2 px-4 flex gap-2">
       <div className="grow relative">
         <MagnifyingGlassIcon className="ml-2.5 w-5 h-full absolute opacity-30" />
         <input
@@ -73,7 +73,7 @@ export function SearchInput(props: {
           onBlur={() => props.onBlur?.()}
         />
         <button
-          className="absolute right-0 top-0 px-1.5 h-full hidden group-focus-within:block"
+          className="absolute right-0 top-0 px-1.5 h-full"
           onClick={cancelSearch}
         >
           <XCircleIcon className="w-6 h-6" />

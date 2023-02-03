@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
 import {
   ButtonHTMLAttributes,
@@ -25,14 +26,7 @@ export const ChoiceButton = forwardRef(function ChoiceButton(
       {...rest}
     >
       <div className={s.content}>{children}</div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={s.icon}
-        src="/icons/chevron-down.svg"
-        width={12}
-        height={7}
-        alt=""
-      />
+      <ChevronDownIcon className="h-5 w-5" />
     </button>
   );
 });

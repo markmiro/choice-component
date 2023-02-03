@@ -8,6 +8,7 @@ import { Portal } from "react-portal";
 import { ChoiceButton } from "./ChoiceButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { MobileSearchChoices, SearchTrigger } from "./MobileSearchChoices";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
   return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
@@ -125,15 +126,9 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                 )}
 
                 {isDrilling && (
-                  <div className={s.mobileBackWrapper}>
-                    <button className={s.mobileBackButton} onClick={back}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src="/icons/back.svg"
-                        width={18}
-                        height={16}
-                        alt=""
-                      />
+                  <div className="sticky top-0 border-b border-gray-200">
+                    <button className="p-3" onClick={back}>
+                      <ArrowLeftIcon className="w-6 h-6" />
                     </button>
                   </div>
                 )}

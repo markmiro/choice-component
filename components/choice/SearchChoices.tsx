@@ -1,3 +1,4 @@
+import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/20/solid";
 import {
   Dispatch,
   KeyboardEventHandler,
@@ -60,14 +61,7 @@ export function SearchInput(props: {
   return (
     <div className={s.searchWrapper}>
       <div className={s.inputGroup}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className={s.inputGroupIcon}
-          src="/icons/search.svg"
-          width={19}
-          height={19}
-          alt=""
-        />
+        <MagnifyingGlassIcon className="ml-2 w-5 h-full absolute opacity-30" />
         <input
           type="search"
           ref={searchInputRef}
@@ -79,18 +73,6 @@ export function SearchInput(props: {
           onFocus={() => props.onFocus?.()}
           onBlur={() => props.onBlur?.()}
         />
-        {props.value && (
-          <button
-            className={s.inputGroupCloseButton}
-            onClick={cancelSearch}
-            onTouchStart={cancelSearch}
-          >
-            <div className={s.inputGroupCloseButtonIcon}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/close.svg" alt="close" />
-            </div>
-          </button>
-        )}
       </div>
     </div>
   );

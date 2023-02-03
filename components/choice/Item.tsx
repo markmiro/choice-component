@@ -3,18 +3,12 @@ import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
 import { useChoiceContext } from "./ChoiceContext";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 function Img({ src, sideLength }: { sideLength: number; src: string }) {
   const id = useId();
   return (
-    <div
-      style={{
-        backgroundColor: "#f3f4f6",
-        borderRadius: 4,
-        overflow: "hidden",
-        flexShrink: 0,
-      }}
-    >
+    <div className="flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         id={id}
@@ -78,16 +72,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
         <Img sideLength={40} src={choice.img} />
         <div className={s.menuItemName}>{choice.name}</div>
         {isActive && hasChildren && <div className={s.activeDot} />}
-        {hasChildren && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            className={s.menuItemIcon}
-            src="/icons/popover-select.svg"
-            width={8}
-            height={14}
-            alt=""
-          />
-        )}
+        {hasChildren && <ChevronRightIcon className="h-5 w-5 opacity-30" />}
       </button>
     );
   }

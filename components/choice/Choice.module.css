@@ -1,7 +1,6 @@
 .mobileBackWrapper {
   position: sticky;
   top: 0;
-  padding: 10px;
 }
 
 .mobileHandle {
@@ -71,10 +70,4 @@
 .menuMobile.menuExpanded {
   height: 100%;
   max-height: 100vh;
-}
-
-.mobileBackButton {
-  cursor: pointer;
-  background: transparent;
-  border: none;
 }

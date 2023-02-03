@@ -111,7 +111,9 @@ export function SearchResults({
     <>
       {choices.length > 0 &&
         filteredChoices.length === 0 &&
-        debouncedSearch && <div style={{ padding: 12 }}>Nothing found 👀</div>}
+        debouncedSearch && (
+          <div className="text-center p-2">Nothing found 👀</div>
+        )}
       {filteredChoices.map((choice) =>
         choice.children && choice.children.length > 0 ? (
           <MenuItemWithChildren

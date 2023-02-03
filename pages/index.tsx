@@ -114,7 +114,7 @@ const Home: NextPage = () => {
             </div>
           ))}
 
-          <h3>non-interactive (ChoiceButton without menu)</h3>
+          <h3>Non-interactive (ChoiceButton without menu)</h3>
 
           <ChoiceButton>
             <CurrentChoice choice={singleChoice} />

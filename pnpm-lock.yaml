@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@faker-js/faker': 7.5.0
+  '@heroicons/react': 2.0.14
   '@types/node': 18.7.18
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
@@ -24,6 +25,7 @@ specifiers:
 
 dependencies:
   '@faker-js/faker': 7.5.0
+  '@heroicons/react': 2.0.14_react@18.2.0
   '@types/react-portal': 4.0.4
   classnames: 2.3.2
   framer-motion: 7.3.6_biqbaboplfbrettd7655fr4n2y
@@ -96,6 +98,14 @@ packages:
   /@faker-js/faker/7.5.0:
     resolution: {integrity: sha512-8wNUCCUHvfvI0gQpDUho/3gPzABffnCn5um65F8dzQ86zz6dlt4+nmAA7PQUc8L+eH+9RgR/qzy5N/8kN0Ozdw==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: false
+
+  /@heroicons/react/2.0.14_react@18.2.0:
+    resolution: {integrity: sha512-eFL4if6L7woL1fUvk/jjXx4z9NxVESHHrQnEd2qKVelTFTIr/3VLGWdPb0biia9ZVe26P0JSs/xmOlRNur3SrQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.10.5:

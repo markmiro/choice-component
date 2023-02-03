@@ -7,7 +7,12 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 function Img({ src, sideLength }: { sideLength: number; src: string }) {
   const id = useId();
   return (
-    <div className="flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+    <div
+      className="flex-shrink-0 overflow-hidden rounded-full bg-gray-200"
+      // translateZ fixes safari bug
+      // https://stackoverflow.com/a/58283449/3075798
+      style={{ transform: "translateZ(0)" }}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         id={id}
@@ -20,7 +25,7 @@ function Img({ src, sideLength }: { sideLength: number; src: string }) {
         src={src}
         alt=""
         loading="lazy"
-        className="w-10 h-10 block shrink-0"
+        className="w-10 h-10 block shrink-0 bg-black"
         style={{
           opacity: 0,
           width: sideLength,

@@ -92,6 +92,8 @@ const Home: NextPage = () => {
       <main className={styles.main} id="__main">
         <h1>Choice Component</h1>
 
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+
         <div
           style={{
             display: "flex",

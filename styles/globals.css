@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --shadow-md: 0px 0px 0px 1px rgba(48, 58, 74, 0.08),
     0px 1px 1px rgba(48, 58, 74, 0.06), 0px 1px 3px rgba(48, 58, 74, 0.08);

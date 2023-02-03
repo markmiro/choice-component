@@ -42,7 +42,7 @@ function createChoices(counts: number[]): ChoiceType[] {
 
 const singleChoice = createChoice();
 const choiceVariations = {
-  SuperNested: createChoices([10, 3, 3]),
+  "Super Nested": createChoices([10, 3, 3]),
   Nested: createChoices([3, 7]),
   Many: createChoices([15]),
   Small: createChoices([3]),
@@ -88,27 +88,31 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className="p-8" id="__main">
+      <main className="p-8 ml-auto mr-auto max-w-xl" id="__main">
         <h1>Choice Component</h1>
 
-        <div className="flex flex-col gap-8 max-w-500">
+        <div className="flex flex-col gap-5">
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
-              <h3 className="font-semibold">{key}</h3>
+              <h3 className="font-semibold mb-3">{key}</h3>
               <div className="flex flex-wrap gap-3">
                 <div>
-                  <p className="my-2">Unselected</p>
                   <Choice
                     choices={choiceVariations[key as KeyType]}
                     state={choiceVariationsState[key]}
                   />
+                  <p className="my-1 text-xs italic text-gray-500">
+                    Unselected
+                  </p>
                 </div>
                 <div>
-                  <p className="my-2">Pre-selected</p>
                   <Choice
                     choices={choiceVariations[key as KeyType]}
                     state={choiceVariationsState2[key]}
                   />
+                  <p className="my-1 text-xs italic text-gray-500">
+                    Pre-selected
+                  </p>
                 </div>
               </div>
             </div>

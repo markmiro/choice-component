@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { mergeRefs, useLayer } from "react-laag";
-import s from "./Choice.module.css";
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config.js";
 import { CurrentChoice, MenuItemWithContext } from "./Item";
 import { SearchChoices } from "./SearchChoices";
 import { ChoiceProps, ChoiceType } from "./types";
@@ -9,6 +10,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useChoiceById } from "./useChoiceById";
 import { ChoiceButton } from "./ChoiceButton";
 import { ChoiceContextProvider, useChoiceContext } from "./ChoiceContext";
+
+const fullConfig = resolveConfig(tailwindConfig);
+const h2 = (fullConfig as any).theme.height[2];
+
+const styles = {
+  menu: "py-2 max-w-sm bg-white border border-gray-200 shadow-xl rounded-md max-h-screen overflow-y-auto overscroll-contain relative flex flex-col",
+};
 
 console.log("loaded DesktopChoice!");
 
@@ -52,7 +60,12 @@ function MenuItemWithChildren({ choice }: { choice: ChoiceType }) {
               }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
             >
-              <div className={s.menu} style={{ transform: "translateY(-8px" }}>
+              <div
+                className={styles.menu}
+                style={{
+                  transform: `translateY(calc(-${h2} - 1px))`,
+                }}
+              >
                 <MenuItems choices={choice.children} />
               </div>
             </motion.div>
@@ -127,7 +140,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
           {isOpen && (
             <motion.div
               {...layerProps}
-              className={s.menu}
+              className={styles.menu}
               initial={{
                 opacity: 0,
                 translateY: 10,

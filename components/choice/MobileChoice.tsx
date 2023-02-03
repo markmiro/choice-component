@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import s from "./Choice.module.css";
 import { CurrentChoice, MenuItem } from "./Item";
 import { ChoiceProps, ChoiceType } from "./types";
 import { useChoiceById } from "./useChoiceById";
@@ -9,9 +8,15 @@ import { ChoiceButton } from "./ChoiceButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { MobileSearchChoices, SearchTrigger } from "./MobileSearchChoices";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
 
 function Overlay({ onClick }: { onClick?: () => void }) {
-  return <div className={s.mobileOverlay} onClick={() => onClick?.()} />;
+  return (
+    <div
+      className="fixed top-0 left-0 w-full h-full"
+      onClick={() => onClick?.()}
+    />
+  );
 }
 
 export function MobileChoice({ choices, state }: ChoiceProps) {
@@ -95,9 +100,10 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
             <>
               <Overlay onClick={close} />
               <motion.div
-                className={`${s.menuMobile} ${
-                  mobileExpanded && s.menuExpanded
-                }`}
+                className={classNames(
+                  "fixed bottom-0 left-0 w-full max-h-[50vh] border-t bg-white flex flex-col shadow-2xl",
+                  mobileExpanded && "h-full max-h-screen"
+                )}
                 initial={{
                   opacity: 0,
                   translateY: 200,
@@ -114,11 +120,11 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                 }}
               >
                 <button
-                  className={s.mobileHandle}
+                  className="p-2 w-2/3 ml-auto mr-auto"
                   onClick={toggleMobileExpanded}
-                  style={{ marginBottom: -4 }}
+                  style={{ height: 2, marginBottom: -4 }}
                 >
-                  <div className={s.mobileHandleInner} />
+                  <div className="h-[3px] bg-gray-200 w-9 ml-auto mr-auto rounded-full" />
                 </button>
 
                 {!isDrilling && choiceById.count > 5 && (
@@ -133,7 +139,10 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
                   </div>
                 )}
 
-                <div className={s.menuMobileScroll} ref={scrollRef}>
+                <div
+                  className="overflow-y-auto overscroll-contain flex flex-col"
+                  ref={scrollRef}
+                >
                   {currentChoices.map((choice) => (
                     <MenuItem
                       key={choice.id}

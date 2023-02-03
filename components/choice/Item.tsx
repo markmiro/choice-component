@@ -74,9 +74,12 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
       >
         <Img sideSize="7" src={choice.img} />
         <div className="flex-grow">{choice.name}</div>
-        {isActive && hasChildren && (
-          <div className="rounded-full w-2 h-2 bg-blue-500" />
-        )}
+        <div
+          className={c(
+            "rounded-full w-2 h-2 bg-blue-500",
+            isActive && hasChildren ? "opacity-100" : "opacity-0"
+          )}
+        />
         <ChevronRightIcon
           className={c("h-5 w-5", hasChildren ? "opacity-30" : "opacity-0")}
         />

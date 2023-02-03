@@ -42,9 +42,7 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
       {choice ? (
         <div className="flex items-center gap-2">
           <Img sideLength={24} src={choice.img} />
-          <div className="whitespace-nowrap overflow-hidden text-ellipsis">
-            {choice.name}
-          </div>
+          <div className="truncate">{choice.name}</div>
         </div>
       ) : (
         "Choose something"

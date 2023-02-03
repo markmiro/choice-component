@@ -15,7 +15,7 @@ const fullConfig = resolveConfig(tailwindConfig);
 const h2 = (fullConfig as any).theme.height[2];
 
 const styles = {
-  menu: "py-2 max-w-sm bg-white border border-gray-200 shadow-xl rounded-md max-h-screen overflow-y-auto overscroll-contain relative flex flex-col",
+  menu: "py-2 max-w-xs bg-white border border-gray-200 shadow-xl rounded-lg relative flex flex-col",
 };
 
 console.log("loaded DesktopChoice!");
@@ -118,6 +118,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
   const { triggerProps, layerProps, renderLayer } = useLayer({
     isOpen,
     placement: "bottom-start",
+    possiblePlacements: ["bottom-start", "top-start"],
     triggerOffset: 4,
     containerOffset: 0,
     auto: true,

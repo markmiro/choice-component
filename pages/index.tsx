@@ -131,6 +131,10 @@ const Home: NextPage = () => {
 
         {/* Footer space */}
         <div style={{ height: "50vh" }} />
+        <Choice
+          choices={choiceVariations["Super Nested"]}
+          state={choiceVariationsState2[0]}
+        />
       </main>
     </div>
   );

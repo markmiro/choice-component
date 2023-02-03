@@ -92,8 +92,6 @@ const Home: NextPage = () => {
       <main className={styles.main} id="__main">
         <h1>Choice Component</h1>
 
-        <br />
-
         <div
           style={{
             display: "flex",
@@ -105,17 +103,21 @@ const Home: NextPage = () => {
           {Object.keys(choiceVariations).map((key) => (
             <div key={key}>
               <h3>{key}</h3>
-              <div>
-                <p>Unselected</p>
-                <Choice
-                  choices={choiceVariations[key as KeyType]}
-                  state={choiceVariationsState[key]}
-                />
-                <p>Pre-selected</p>
-                <Choice
-                  choices={choiceVariations[key as KeyType]}
-                  state={choiceVariationsState2[key]}
-                />
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "1em" }}>
+                <div>
+                  <p>Unselected</p>
+                  <Choice
+                    choices={choiceVariations[key as KeyType]}
+                    state={choiceVariationsState[key]}
+                  />
+                </div>
+                <div>
+                  <p>Pre-selected</p>
+                  <Choice
+                    choices={choiceVariations[key as KeyType]}
+                    state={choiceVariationsState2[key]}
+                  />
+                </div>
               </div>
             </div>
           ))}

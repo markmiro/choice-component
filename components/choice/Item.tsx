@@ -63,11 +63,12 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
       <button
         ref={ref}
         className={c([
-          "w-full text-left flex pl-4 pr-2 py-2 items-center gap-2 hover:bg-neutral-100 focus:bg-gray-100 focus:outline-none",
+          "w-full text-left flex pl-4 pr-2 py-2 items-center gap-2 focus:outline-none",
           {
-            ["bg-blue-500 text-white hover:bg-blue-600"]:
+            "hover:bg-gray-100 focus:bg-gray-100": !isHover && !isActive,
+            "bg-blue-500 text-white hover:bg-blue-600":
               isActive && !hasChildren,
-            ["bg-neutral-100"]: isHover,
+            "bg-gray-100": isHover,
           },
         ])}
         {...rest}

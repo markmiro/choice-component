@@ -1,5 +1,4 @@
 import { DetailedHTMLProps, forwardRef, HTMLAttributes, useId } from "react";
-import s from "./Item.module.css";
 import c from "classnames";
 import { ChoiceType } from "./types";
 import { useChoiceContext } from "./ChoiceContext";
@@ -21,7 +20,7 @@ function Img({ src, sideLength }: { sideLength: number; src: string }) {
         src={src}
         alt=""
         loading="lazy"
-        className={s.img}
+        className="w-10 h-10 block shrink-0"
         style={{
           opacity: 0,
           width: sideLength,
@@ -36,9 +35,11 @@ export function CurrentChoice({ choice }: { choice?: ChoiceType }) {
   return (
     <>
       {choice ? (
-        <div className={s.currentChoice}>
+        <div className="flex items-center gap-2">
           <Img sideLength={24} src={choice.img} />
-          <div className={s.currentChoiceText}>{choice.name}</div>
+          <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+            {choice.name}
+          </div>
         </div>
       ) : (
         "Choose something"
@@ -61,17 +62,20 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
       <button
         ref={ref}
         className={c([
-          s.menuItem,
+          "text-left flex px-4 py-3 items-center gap-3 hover:bg-neutral-100",
           {
-            [s.active]: isActive && !hasChildren,
-            [s.onPath]: isHover,
+            ["bg-blue-500 text-white hover:bg-blue-600"]:
+              isActive && !hasChildren,
+            ["bg-neutral-100"]: isHover,
           },
         ])}
         {...rest}
       >
         <Img sideLength={40} src={choice.img} />
-        <div className={s.menuItemName}>{choice.name}</div>
-        {isActive && hasChildren && <div className={s.activeDot} />}
+        <div className="flex-grow">{choice.name}</div>
+        {isActive && hasChildren && (
+          <div className="rounded-full w-2 h-2 bg-blue-500" />
+        )}
         {hasChildren && <ChevronRightIcon className="h-5 w-5 opacity-30" />}
       </button>
     );

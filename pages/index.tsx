@@ -127,7 +127,7 @@ const Home: NextPage = () => {
             >
               JavaScript disabled
             </a>
-            .
+            . The UI should be the same, but the menu is not interactive.
           </li>
         </ol>
 

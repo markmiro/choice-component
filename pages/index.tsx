@@ -89,7 +89,37 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="p-8 ml-auto mr-auto max-w-xl" id="__main">
-        <h1>Choice Component</h1>
+        <h1 className="leading-none font-semibold text-3xl">
+          Choice Component
+          <br />
+          <small className="font-normal text-lg my-3 opacity-50 italic">
+            Choose items from a nested structure.
+          </small>
+        </h1>
+
+        <p className="leading-snug border rounded-lg px-5 py-3 border-blue-300 bg-blue-50 text-blue-900">
+          Try it on mobile. If you&apos;re emulating, make sure to refresh the
+          page.
+        </p>
+
+        <p className="my-3 leading-snug">Things to try:</p>
+
+        <ol className="list-decimal ml-6 leading-snug">
+          <li className="my-1">
+            Click on a deeply nested item, then follow the blue dots to find it
+            again.
+          </li>
+          <li className="my-1">Search for a deeply nested item.</li>
+          <li className="my-1">Try it on mobile.</li>
+          <li className="my-1">Play with the screen size.</li>
+          <li className="my-1">
+            Press <kbd>Esc</kbd> key when you have a search query. It should
+            clear the search. Then press <kbd>Esc</kbd> again. It should close
+            the menu.
+          </li>
+        </ol>
+
+        <hr className="my-5" />
 
         <div className="flex flex-col gap-5">
           {Object.keys(choiceVariations).map((key) => (

@@ -101,7 +101,7 @@ export function MobileChoice({ choices, state }: ChoiceProps) {
               <Overlay onClick={close} />
               <motion.div
                 className={classNames(
-                  "fixed bottom-0 left-0 w-full max-h-[50vh] border-t bg-white flex flex-col shadow-2xl",
+                  "fixed bottom-0 left-0 w-full max-h-[70vh] border-t bg-white flex flex-col shadow-2xl",
                   mobileExpanded && "h-full max-h-screen"
                 )}
                 initial={{

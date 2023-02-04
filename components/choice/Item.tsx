@@ -62,15 +62,13 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemPropsType>(
     return (
       <button
         ref={ref}
-        className={c([
+        className={c(
           "w-full text-left flex pl-4 pr-2 py-2 items-center gap-2 focus:outline-none",
-          {
-            "hover:bg-gray-100 focus:bg-gray-100": !isHover && !isActive,
-            "bg-blue-500 text-white hover:bg-blue-600":
-              isActive && !hasChildren,
-            "bg-gray-100": isHover,
-          },
-        ])}
+          isActive && !hasChildren
+            ? "bg-blue-500 text-white hover:bg-blue-600"
+            : "hover:bg-gray-100 focus:bg-gray-100",
+          isHover && "bg-gray-100"
+        )}
         {...rest}
       >
         <Img sideSize="7" src={choice.img} />

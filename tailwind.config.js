@@ -12,4 +12,9 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  // https://stackoverflow.com/a/73798548/3075798
+  safelist: [
+    ...[...Array(30).keys()].flatMap((i) => `w-${i}`),
+    ...[...Array(30).keys()].flatMap((i) => `h-${i}`),
+  ],
 };

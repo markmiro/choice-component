@@ -1,5 +1,6 @@
 
 Now:
+- Fix debounce search
 - mobile: remove fade out when closing menu
 - mobile: show handle when input is focused
 - make arrow keys work

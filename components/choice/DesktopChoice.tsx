@@ -47,18 +47,14 @@ function MenuItemWithChildren({ choice }: { choice: ChoiceType }) {
           {isOpen && choice.children && choice.children.length > 0 && (
             <motion.div
               {...layerProps}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 0.1, delay: 0.15 }}
               initial={{
                 opacity: 0,
-                translateY: 5,
-                scale: 0.95,
               }}
               animate={{
                 opacity: 1,
-                translateY: 0,
-                scale: 1,
               }}
-              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+              exit={{ opacity: 0, transition: { duration: 0.1 } }}
             >
               <div
                 className={styles.menu}
@@ -108,7 +104,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
     if (children && children.length > 0) {
     } else {
       setChosenId(id);
-      setTimeout(close, 200);
+      setTimeout(close, 100);
     }
   };
 
@@ -144,7 +140,7 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
               className={styles.menu}
               initial={{
                 opacity: 0,
-                translateY: 10,
+                translateY: 8,
               }}
               animate={{
                 opacity: 1,
@@ -153,8 +149,8 @@ export function DesktopChoice({ choices, state }: ChoiceProps) {
               }}
               exit={{
                 opacity: 0,
-                translateY: 10,
-                transition: { duration: 0.2 },
+                translateY: 8,
+                transition: { duration: 0 },
               }}
             >
               <ChoiceContextProvider

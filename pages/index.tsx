@@ -12,7 +12,7 @@ faker.seed(1);
 let i = 0;
 const getImage = () => {
   // `% 31` to wrap since big ids don't have images, and want a number that's not so predictable
-  const img = `https://picsum.photos/id/${(i % 31) + 10}/80`;
+  const img = `https://i.pravatar.cc/150?img=${(i % 31) + 10}/80`;
   i++;
   return img;
 };
@@ -20,8 +20,8 @@ const getImage = () => {
 function createChoice() {
   return {
     id: faker.random.alphaNumeric(10),
-    img: faker.image.avatar(),
-    // img: getImage(),
+    // img: faker.image.avatar(),
+    img: getImage(),
     // name: faker.lorem.sentence(),
     name: faker.name.fullName(),
     children: [],
@@ -116,6 +116,18 @@ const Home: NextPage = () => {
             Press <kbd>Esc</kbd> key when you have a search query. It should
             clear the search. Then press <kbd>Esc</kbd> again. It should close
             the menu.
+          </li>
+          <li className="my-1">
+            Load the page with{" "}
+            <a
+              href="https://developer.chrome.com/docs/devtools/javascript/disable/#:~:text=Press%20Control%2BShift%2BP%20or,to%20open%20the%20Command%20Menu.&text=Start%20typing%20javascript%20%2C%20select%20Disable,JavaScript%20is%20now%20disabled.&text=The%20yellow%20warning%20icon%20next,you%20that%20JavaScript%20is%20disabled."
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              JavaScript disabled
+            </a>
+            .
           </li>
         </ol>
 
